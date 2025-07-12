@@ -30,7 +30,7 @@ include('adminHeader.php');
                     </thead>
                     <tbody>
                         <?php
-                        $db = mysqli_connect("localhost", "root", "", "rise3");
+                        include('connection.php');
                         $query = "SELECT * FROM `users` WHERE `role` = 'company' AND `status` = 'inactive'";
 
                         $result = mysqli_query($db, $query);
@@ -91,7 +91,7 @@ include('adminHeader.php');
                     </thead>
                     <tbody>
                         <?php
-                        $db = mysqli_connect("localhost", "root", "", "rise3");
+                        include('connection.php');
                         $query = "SELECT * FROM `users` WHERE `role` = 'company' AND `status` = 'active'";
 
                         $result = mysqli_query($db, $query);

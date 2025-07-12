@@ -60,7 +60,7 @@ include('adminHeader.php');
                     </thead>
                     <tbody>
                         <?php
-                        $db = mysqli_connect("localhost", "root", "", "rise3");
+                       include('connection.php');
                         $query = "SELECT * FROM `users`";
 
                         $result = mysqli_query($db, $query);

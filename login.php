@@ -3,7 +3,7 @@ session_start();
 
 // PROCESS LOGIN FIRST
 if (isset($_POST['login'])) {
-    $db = mysqli_connect("localhost", "root", "", "rise3");
+    include('connection.php');
 
     if (!$db) {
         die("Connection failed: " . mysqli_connect_error());

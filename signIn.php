@@ -2,7 +2,7 @@
 include('header.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
-    $db = mysqli_connect("localhost", "root", "", "rise3");
+    include('connection.php');
     if (!$db) die("Connection failed: " . mysqli_connect_error());
 
     $formType = $_POST['formType'];
