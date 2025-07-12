@@ -69,6 +69,7 @@
                         </div>
                     </div>
                     <a href="contact.php" class="nav-item nav-link">Contact</a>
+                    <a href="adminDashboard.php" class="nav-item nav-link">Admin Panel</a>
                 </div>
                 <a href="login.php" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Login<i class="fa fa-arrow-right ms-3"></i></a>
             </div>
