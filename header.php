@@ -57,16 +57,15 @@
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Services</a>
                         <div class="dropdown-menu rounded-0 m-0">
-                            <a href="job-list.php" class="dropdown-item">Interships</a>
-                            <a href="job-detail.php" class="dropdown-item">Industrial Trainings</a>
+                            <a href="job-list.php" class="dropdown-item">Industrial Trainings</a>
+                            <a href="job-detail.php" class="dropdown-item">Internships</a>
                         </div>
                     </div>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">More</a>
                         <div class="dropdown-menu rounded-0 m-0">
-                            <a href="category.php" class="dropdown-item">Fields</a>
+                            <a href="category.php" class="dropdown-item">Categories</a>
                             <a href="testimonial.php" class="dropdown-item">Reviews</a>
-                            <a href="404.php" class="dropdown-item active">Made By</a>
                         </div>
                     </div>
                     <a href="contact.php" class="nav-item nav-link">Contact</a>

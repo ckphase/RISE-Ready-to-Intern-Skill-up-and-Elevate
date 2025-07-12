@@ -1,102 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RISE Admin Dashboard</title>
+    <meta charset="utf-8">
+    <title>RISE</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
 
-  <!-- Bootstrap 5 -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
 
-  <!-- Font Awesome (for dashboard icons, not navbar) -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Inter:wght@700;800&display=swap" rel="stylesheet">
+    
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Inter:wght@700;800&display=swap" rel="stylesheet" />
+    <!-- Libraries Stylesheet -->
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
-  <style>
-    body {
-      font-family: 'Heebo', sans-serif;
-      background-color: #f8f9fa;
-    }
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 
-    .navbar {
-      background-color: #ffffff;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    }
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
 
-    .navbar-brand h1 {
-      font-family: 'Inter', sans-serif;
-      font-weight: 800;
-      color: #0d6efd;
-      margin: 0;
-    }
 
-    .nav-link {
-      font-weight: 500;
-      color: #333;
-    }
-
-    .nav-link.active,
-    .nav-link:hover,
-    .dropdown-item:hover {
-      color: #0d6efd !important;
-    }
-
-    .dropdown-menu {
-      border-radius: 0;
-    }
-
-    .content-section {
-      display: none;
-      padding: 40px;
-    }
-
-    .content-section.active {
-      display: block;
-    }
-  </style>
 </head>
+
 <body>
-  <!-- Navbar Start -->
-<nav class="navbar navbar-expand-lg sticky-top p-0">
-    <div class="container-fluid px-4">
-        <a class="navbar-brand py-3" href="#">
-            <h1>RISE Admin</h1>
-        </a>
-        <button class="navbar-toggler me-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <div class="navbar-nav ms-auto p-3 p-lg-0">
-                <a class="nav-link active" href="#dashboard" onclick="showSection('dashboard')">Dashboard</a>
-                <a class="nav-link" href="#companies" onclick="showSection('companies')">Approve Companies</a>
-                <a class="nav-link" href="#accounts" onclick="showSection('accounts')">Account Management</a>
-
-                <!-- More Dropdown -->
-                <div class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">More</a>
-                    <div class="dropdown-menu rounded-0 m-0">
-                        <a class="dropdown-item" href="#internships" onclick="showSection('internships')">Manage Internships</a>
-                        <a class="dropdown-item" href="#applications" onclick="showSection('applications')">Applications</a>
-                        <a class="dropdown-item" href="#announcements" onclick="showSection('announcements')">Announcements</a>
-                        <a class="dropdown-item" href="#allCategory" onclick="showSection('allCategory')">All Users</a>
-                        <a class="dropdown-item" href="#">Settings</a>
-                    </div>
-                </div>
-
-                
-
-                <!-- Logout Button -->
-                 </div>
-                <a href="logout.php" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block my-2">
-    Logout <i class="fa fa-arrow-right ms-3"></i>
-</a>
-
-            </div>
+    <div class="container-xxl bg-white p-0">
+        <!-- Spinner Start -->
+        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
             </div>
         </div>
-    </div>
-</nav>
-<!-- Navbar End -->
+        <!-- Spinner End -->
+
+
+        <!-- Navbar Start -->
+        <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
+            <a href="index.php" class="navbar-brand d-flex align-items-center text-center py-0 px-4 px-lg-5">
+                <h1 class="m-0 text-primary">RISE</h1>
+            </a>
+            <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav ms-auto p-4 p-lg-0">
+                    <a href="adminDashboard.php" class="nav-item nav-link">dashboard</a>
+                    <a href="adminCompaniesApprove.php" class="nav-item nav-link">Approve Companies</a>
+                    <a href="adminApplications.php" class="nav-item nav-link">Reports</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">More</a>
+                        <div class="dropdown-menu rounded-0 m-0">
+                            <a href="adminAccountsManagement.php" class="dropdown-item">Manage Accounts</a>
+                            <a href="adminInternships.php" class="dropdown-item">Internships</a>
+                            <a href="adminAllUsers.php" class="dropdown-item">Users List</a>
+                            <a href="adminAnnouncements.php" class="dropdown-item">Announcement</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="logout.php" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Logout<i class="fa fa-arrow-right ms-3"></i></a>
+            </div>
+        </nav>
+        <!-- Navbar End -->

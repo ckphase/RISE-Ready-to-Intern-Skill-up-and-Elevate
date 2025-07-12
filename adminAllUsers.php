@@ -39,7 +39,7 @@ include('adminHeader.php');
     <div class="container">
         <div class="row mb-4">
             <div class="col-12">
-                <h2 class="fw-bold text-dark">Account Management</h2>
+                <h2 class="fw-bold text-dark">Accounts List</h2>
                 <p class="text-muted">Manage student and company accounts</p>
             </div>
         </div>
@@ -54,8 +54,6 @@ include('adminHeader.php');
                             <th scope="col">Status</th>
                             <th scope="col">Action</th>
                             <th scope="col">Action</th>
-                            <th scope="col">Action</th>
-
                         </tr>
                     </thead>
                     <tbody>
@@ -77,18 +75,6 @@ include('adminHeader.php');
                                 <td><?php echo $row["role"] ?>
                                 </td>
                                 <td><?php echo $row["status"] ?>
-                                </td>
-                                <td>
-                                    <!-- deletee  -->
-                                    <button class="btn btn-success btn-sm me-1">
-                                        <a href="deletee.php?id=<?php echo $row["id"] ?>" class="text-white"><i class="fas fa-check"></i></a>
-                                    </button>
-                                    <button class="btn btn-danger btn-sm me-1">
-                                        <a href="deletee.php?id=<?php echo $row["id"] ?>" class="text-white"><i class="fas fa-times"></i></a>
-                                    </button>
-                                    <button class="btn btn-outline-primary btn-sm">
-                                        <a href="deletee.php?id=<?php echo $row["id"] ?>" class="text-primary"><i class="fas fa-eye"></i></a>
-                                    </button>
                                 </td>
                             </tr>
                             <?php

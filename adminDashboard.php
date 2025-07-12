@@ -1,7 +1,5 @@
 <?php
-
 include('adminheader.php');
-
 ?>
 <!-- Professional Admin Header with Background Image -->
 <div class="container-fluid text-white py-5 px-4 mb-5" 
@@ -184,16 +182,6 @@ include('adminheader.php');
             </div>
         </div>
     </div>
-
-    <?php
-    include('adminCompaniesApprove.php');
-    include('adminAccountsManagement.php');
-    include('adminInternships.php');
-    include('adminApplications.php');
-    include('adminAnnouncements.php');
-    include('allCategory.php');
-    ?>
-
 </div>
 
 <!-- Bootstrap 5 JS -->

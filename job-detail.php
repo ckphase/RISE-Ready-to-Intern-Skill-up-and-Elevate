@@ -26,6 +26,7 @@ include ('header.php');
                         <div class="d-flex align-items-center mb-5">
                             <img class="flex-shrink-0 img-fluid border rounded" src="img/com-logo-2.jpg" alt="" style="width: 80px; height: 80px;">
                             <div class="text-start ps-4">
+                                
                                 <h3 class="mb-3">Marketing Manager</h3>
                                 <span class="text-truncate me-3"><i class="fa fa-map-marker-alt text-primary me-2"></i>New York, USA</span>
                                 <span class="text-truncate me-3"><i class="far fa-clock text-primary me-2"></i>Full Time</span>
@@ -102,6 +103,8 @@ include ('header.php');
             </div>
         </div>
         <!-- Job Detail End -->
+
+
 <?php 
 include ('footer.php');
 ?>
