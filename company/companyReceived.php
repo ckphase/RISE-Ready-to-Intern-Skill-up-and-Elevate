@@ -1,6 +1,10 @@
-        <!-- Applications Section -->
+<?php
+include("companyHeader.php");
+?>
+<div class="container">
+       <!-- Applications Section -->
         <div id="applications" class="content-section">
-            <h2 class="mb-4"><i class="fas fa-file-alt me-2"></i>Student Applications</h2>
+            <h2 class="mb-4"><i class="fas fa-file-alt me-2 mt-4"></i>Student Applications</h2>
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive">
@@ -93,3 +97,8 @@
                 </div>
             </div>
         </div>
+
+</div> 
+<?php
+include("companyFooter.php");
+?>

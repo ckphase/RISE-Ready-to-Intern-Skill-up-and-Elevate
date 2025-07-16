@@ -130,7 +130,7 @@
                     </div>
                     <a href="contact.php" class="nav-item nav-link">Contact</a>
                 </div> -->
-                <a href="login.php" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Logout<i class="fa fa-arrow-right ms-3"></i></a>
+                <a href="../dbms/logout.php" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Logout<i class="fa fa-arrow-right ms-3"></i></a>
             </div>
         </nav>
 <!-- Navbar End -->

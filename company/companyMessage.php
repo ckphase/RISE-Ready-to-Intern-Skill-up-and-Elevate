@@ -1,9 +1,10 @@
 <?php
 include("companyHeader.php");
 ?>   
+<div class="container">
        <!-- Contact Section -->
         <div id="contact" class="content-section">
-            <h2 class="mb-4"><i class="fas fa-envelope me-2"></i>Contact Selected Students</h2>
+            <h2 class="mb-4"><i class="fas fa-envelope me-2 mt-4"></i>Contact Selected Students</h2>
             <div class="row">
                 <div class="col-md-4">
                     <div class="card">
@@ -73,6 +74,7 @@ include("companyHeader.php");
                     </div>
                 </div>
             </div>
+        </div>
         </div>
 
 <?php

@@ -21,10 +21,14 @@ if (isset($_POST['login'])) {
         $_SESSION['role'] = $user['role'];
 
         if ($user['role'] == 'student') {
-            header("Location: studentpanel.php");
+            header("Location: ../student/studentpanel.php");
             exit();
         } elseif ($user['role'] == 'company') {
-            header("Location: companypanel.php");
+            header("Location: ../company/company.php");
+            exit();
+        }
+        elseif ($user['role'] == 'admin') {
+            header("Location: ../admin/adminDashboard.php");
             exit();
         } else {
             echo "Unknown role.";

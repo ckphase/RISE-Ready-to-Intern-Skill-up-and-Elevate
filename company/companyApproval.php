@@ -1,8 +1,9 @@
  <?php
 include("companyHeader.php");
 ?>
+<div class="container">
  <!-- Register Section -->
-        <div id="register" class="content-section">
+        <!-- <div id="register" class="content-section">
             <h2 class="mb-4"><i class="fas fa-user-plus me-2"></i>Company Registration</h2>
             <div class="card">
                 <div class="card-body">
@@ -65,7 +66,7 @@ include("companyHeader.php");
                     </form>
                 </div>
             </div>
-        </div>
+        </div> -->
 
         <!-- Approval Status Section -->
         <div id="approval" class="content-section">
@@ -119,6 +120,8 @@ include("companyHeader.php");
                 </div>
             </div>
         </div>
+        <!-- Main Content -->
+</div>
 <?php
 include("companyFooter.php");
 ?>

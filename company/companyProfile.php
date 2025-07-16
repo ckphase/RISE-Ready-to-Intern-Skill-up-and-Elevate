@@ -1,9 +1,10 @@
 <?php
 include("companyHeader.php");
 ?>
+<div class="container">
         <!-- Profile Section -->
         <div id="profile" class="content-section">
-            <h2 class="mb-4"><i class="fas fa-user-edit me-2"></i>Company Profile</h2>
+            <h2 class="mb-4"><i class="fas fa-user-edit me-2 mt-5 mb-3"></i>Company Profile</h2>
             <div class="card">
                 <div class="card-body">
                     <form>
@@ -61,6 +62,7 @@ include("companyHeader.php");
                 </div>
             </div>
         </div>
+</div>
 <?php
 include("companyFooter.php");
 ?>

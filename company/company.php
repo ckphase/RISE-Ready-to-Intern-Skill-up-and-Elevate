@@ -2,7 +2,6 @@
 include("companyHeader.php");
 ?>
 
-<!-- Main Content -->
 
 <div class="container-fluid text-white" style="
     background-image: url('../img/studentPanel.avif');
@@ -13,18 +12,28 @@ include("companyHeader.php");
     padding-top: 120px;
     padding-bottom: 120px;
 ">
+<style>
+.text-border {
+  color: white;
+  text-shadow:
+    -1px -1px 0 #000,  
+     1px -1px 0 #000,
+    -1px  1px 0 #000,
+     1px  1px 0 #000;
+}
+</style>
 
     <div class="container">
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
             <div>
-                <h1 class="fw-bold mb-1 text-uppercase text-white" style="letter-spacing: 1px;">Company <span class="text-black">Dashboard</span></h1>
+                <h1 class="fw-bold mb-1 text-uppercase text-black text-border" style="letter-spacing: 1px;"><span class="text-white">company</span> Dashboard</h1>
                 <p class="mb-0 small text-light">Find your industrial trainings!!</p>
             </div>
         </div>
     </div>
 </div>
-
-<div class="container-fluid"></div>
+<!-- Main Content -->
+<div class="container">
             <div class="row g-4 mt-3 mb-5">
         <div class="col-xl-3 col-md-6">
             <div class="card border-0 shadow-sm h-100">
@@ -147,6 +156,7 @@ include("companyHeader.php");
         </div>
     </div>
 
+</div>
 </div>
 <?php
 include("companyFooter.php");

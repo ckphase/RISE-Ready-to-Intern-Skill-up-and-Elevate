@@ -61,8 +61,8 @@
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">More</a>
                         <div class="dropdown-menu rounded-0 m-0">
                             <a href="companyOpportunities.php" class="dropdown-item">Post Internships</a>
-                            <a href="companyApproval.php" class="dropdown-item">Applications Received</a>
-                            <a href="companyReceived.php" class="dropdown-item">Messages</a>
+                            <a href="companyReceived.php" class="dropdown-item">Applications Received</a>
+                            <a href="companyMessage.php" class="dropdown-item">Messages</a>
                         </div>
                     </div>
                 </div>

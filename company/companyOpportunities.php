@@ -1,6 +1,7 @@
 <?php
 include("companyHeader.php");
 ?>
+<div class="container">
         <!-- Post Opportunities Section -->
         <div id="post-opportunities" class="content-section">
             <h2 class="mb-4"><i class="fas fa-plus-circle me-2"></i>Post Internships / Trainings</h2>
@@ -83,6 +84,7 @@ include("companyHeader.php");
                 </div>
             </div>
         </div>
+</div>
 <?php
 include("companyFooter.php");
 ?>
