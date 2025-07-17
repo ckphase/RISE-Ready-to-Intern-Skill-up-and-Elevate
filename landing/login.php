@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+
 // PROCESS LOGIN FIRST
 if (isset($_POST['login'])) {
     include('../dbms/connection.php');
@@ -12,7 +13,7 @@ if (isset($_POST['login'])) {
     $email = $_POST['userEmail'];
     $password = $_POST['userPassword'];
 
-    $sql = "SELECT * FROM users WHERE email = '$email' AND password = '$password'";
+    $sql = "SELECT * FROM users WHERE email = '$email' AND password = '$password' ";
     $result = mysqli_query($db, $sql);
 
     if (mysqli_num_rows($result) == 1) {
@@ -21,14 +22,14 @@ if (isset($_POST['login'])) {
         $_SESSION['role'] = $user['role'];
 
         if ($user['role'] == 'student') {
-            header("Location: ../student/studentpanel.php");
+            header("Location: ../student/studentpanel.php?id=" . $user['id']);
             exit();
         } elseif ($user['role'] == 'company') {
-            header("Location: ../company/company.php");
+            header("Location: ../company/company.php?id=" . $user['id']);
             exit();
         }
         elseif ($user['role'] == 'admin') {
-            header("Location: ../admin/adminDashboard.php");
+            header("Location: ../admin/adminDashboard.php?id=" . $user['id']);
             exit();
         } else {
             echo "Unknown role.";

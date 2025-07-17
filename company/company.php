@@ -44,7 +44,9 @@ include("companyHeader.php");
                                 <i class="fas fa-users fs-4"></i>
                             </div>
                         </div>
-                     
+                        <?php
+                        
+                        ?>
                         <div class="flex-grow-1 ms-3">
                             <h3 class="fw-bold mb-0">72</h3>
                             <p class="text-muted mb-0">Total Students</p>

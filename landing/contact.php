@@ -63,7 +63,7 @@ include ('header.php');
         <!-- Contact End -->
 
 <?php
-include ('connection.php');
+include ('../dbms/connection.php');
 if (isset($_POST['submit'])) {
     $name = $_POST['name'];
     $email = $_POST['email'];

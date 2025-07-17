@@ -2,6 +2,15 @@
 include('adminheader.php');
 include('../dbms/connection.php');
 ?>
+<?php
+// Check if 'id' is set
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    echo "User ID: " . htmlspecialchars($id);
+} else {
+    echo "No user ID provided.";
+}
+?>
 <!-- Professional Admin Header with Background Image -->
 <div class="container-fluid text-white py-5 px-4 mb-5" style="
         background: rgb(157,168,172);
@@ -12,7 +21,7 @@ include('../dbms/connection.php');
     <div class="container">
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
             <div>
-                <h2 class="fw-bold mb-1 text-uppercase" style="letter-spacing: 1px;">Admin Dashboard</h2>
+                <h2 class="fw-bold mb-1 text-uppercase" style="letter-spacing: 1px;">Admin Dashboard </h2>
                 <p class="mb-0 small text-light">Full control over users, companies, and internships</p>
             </div>
         </div>
