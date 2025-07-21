@@ -1,6 +1,19 @@
 <?php
 include('adminHeader.php');
 ?>
+<?php
+// Check if 'id' is set
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $query = "Select * from `users` where id = '$id'";
+    $result = mysqli_query($db, $query);
+    $row = mysqli_fetch_array($result);
+    $id = $row["id"];
+    $name = $row["name"];
+} else {
+    echo "No user ID provided.";
+}
+?>
 <div class="container-xxl py-5" id="allCategories">
     <div class="container">
         <div class="row mb-4">

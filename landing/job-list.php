@@ -4,7 +4,7 @@ include('header.php');
 <!-- Header End -->
 <div class="container-xxl py-5 bg-dark page-header mb-5">
     <div class="container my-5 pt-5 pb-4">
-        <h1 class="display-3 text-white mb-3 animated slideInDown">Job List</h1>
+        <h1 class="display-3 text-white mb-3 animated slideInDown">Industrial Training</h1>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb text-uppercase">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
@@ -23,7 +23,7 @@ include('header.php');
         <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">Industrial Training Listings</h1>
 
         <?php
-        include('connection.php');
+        include('../dbms/connection.php');
         $query = "SELECT * FROM internships";
         $result = mysqli_query($db, $query);
         while ($row = mysqli_fetch_assoc($result)) {

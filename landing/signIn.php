@@ -18,6 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
 
     if (mysqli_stmt_execute($stmt)) {
         echo "<script>alert('Account created successfully as $role!');</script>";
+        echo "<script>window.location.href = 'login.php';</script>";
     } else {
         echo "<script>alert('Email already exists or error occurred.');</script>";
     }
