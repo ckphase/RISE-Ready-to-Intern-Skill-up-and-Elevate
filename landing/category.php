@@ -23,7 +23,7 @@ include('header.php');
 
     <div class="container d-flex justify-content-evenly flex-wrap">
         <?php
-        include('connection.php');
+        include('../dbms/connection.php');
         $query = "SELECT * FROM internships";
         $result = mysqli_query($db, $query);
         while ($row = mysqli_fetch_assoc(($result))) {

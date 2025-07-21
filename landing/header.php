@@ -29,6 +29,32 @@
 
     <!-- Template Stylesheet -->
     <link href="../css/style.css" rel="stylesheet">
+    <!-- JavaScript Libraries (corrected paths) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- jQuery (must be first) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script> <!-- Bootstrap Bundle -->
+<script src="../lib/wow/wow.min.js"></script> <!-- WOW.js -->
+<script src="../lib/owlcarousel/owl.carousel.min.js"></script> <!-- Owl Carousel -->
+
+<!-- Initialization Scripts -->
+<script>
+    new WOW().init();
+
+    $(document).ready(function(){
+        $(".testimonial-carousel").owlCarousel({
+            loop: true,
+            margin: 30,
+            autoplay: true,
+            autoplayTimeout: 5000,
+            smartSpeed: 1000,
+            responsive: {
+                0: { items: 1 },
+                768: { items: 2 },
+                992: { items: 3 }
+            }
+        });
+    });
+</script>
+
 </head>
 
 <body>
