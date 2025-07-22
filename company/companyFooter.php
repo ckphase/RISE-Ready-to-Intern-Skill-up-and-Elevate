@@ -6,24 +6,21 @@
                 <div class="row g-5">
                     <div class="col-lg-3 col-md-6">
                         <h5 class="text-white mb-4">Company</h5>
-                        <a class="btn btn-link text-white-50" href="">About Us</a>
-                        <a class="btn btn-link text-white-50" href="">Contact Us</a>
-                        <a class="btn btn-link text-white-50" href="">Our Services</a>
-                        <a class="btn btn-link text-white-50" href="">Privacy Policy</a>
-                        <a class="btn btn-link text-white-50" href="">Terms & Condition</a>
+                        <a class="btn btn-link text-white-50" href="about.php">About Us</a>
+                        <a class="btn btn-link text-white-50" href="contact.php">Contact Us</a>
+                        <a class="btn btn-link text-white-50" href="signin.php">Join Us</a>
                     </div>
                     <div class="col-lg-3 col-md-6">
                         <h5 class="text-white mb-4">Quick Links</h5>
-                        <a class="btn btn-link text-white-50" href="">About Us</a>
-                        <a class="btn btn-link text-white-50" href="">Contact Us</a>
-                        <a class="btn btn-link text-white-50" href="">Our Services</a>
-                        <a class="btn btn-link text-white-50" href="">Privacy Policy</a>
-                        <a class="btn btn-link text-white-50" href="">Terms & Condition</a>
+                        <a class="btn btn-link text-white-50" href="companyApproval.php">Applications</a>
+                        <a class="btn btn-link text-white-50" href="companyOpportunities.php">Post Opportunities</a>
+                        <a class="btn btn-link text-white-50" href="companyProfile.php">View Profile</a>
+                        <a class="btn btn-link text-white-50" href="../dbms/logout.php">Logout</a>
                     </div>
                     <div class="col-lg-3 col-md-6">
                         <h5 class="text-white mb-4">Contact</h5>
                         <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>1010X 1010X</p>
-                        <p class="mb-2"><i class="fa fa-envelope me-3"></i>risesample@gmail.com</p>
+                        <p class="mb-2"><i class="fa fa-envelope me-3"></i>risesample@example.com</p>
 
                     </div>
                     <div class="col-lg-3 col-md-6">

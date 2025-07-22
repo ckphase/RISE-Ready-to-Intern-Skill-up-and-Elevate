@@ -13,13 +13,13 @@ $_SESSION['company_id'] = $company_id;
 
 
 <div class="container-fluid text-white" style="
-    background-image: url('https://plus.unsplash.com/premium_photo-1661776946043-cd5b2190a616?q=80&w=1032&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+    background: rgba(136, 211, 238, 1);
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
     box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-    padding-top: 120px;
-    padding-bottom: 120px;
+    padding-top:70px;
+    padding-bottom:70px;
 ">
     <?php
     $query = "SELECT * FROM `users` WHERE role = 'company' AND status = 'active' AND id = $company_id";
@@ -42,10 +42,10 @@ $_SESSION['company_id'] = $company_id;
     <div class="container">
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
             <div>
-                <h1 class="fw-bold mb-1 text-uppercase text-black text-border" style="letter-spacing: 1px;">
+                <h2 class="fw-bold mb-1 text-uppercase text-black text-border" style="letter-spacing: 1px;">Welcome,
                     <?php echo $companyName; ?>
-                </h1>
-                <p class="mb-0 small text-light">Find your industrial trainings!!</p>
+                </h2>
+                <h4 class="mb-0 text-light">Company Dashboard</h4>
             </div>
         </div>
     </div>
@@ -54,7 +54,7 @@ $_SESSION['company_id'] = $company_id;
 <div class="container">
     <div class="row g-4 mt-3 mb-5">
         <div class="col-xl-3 col-md-6">
-            <div class="card border-0 shadow-sm h-100">
+            <div class="card border-3 shadow-sm h-100">
                 <div class="card-body">
                     <div class="d-flex align-items-center">
                         <div class="flex-shrink-0">
@@ -75,7 +75,7 @@ $_SESSION['company_id'] = $company_id;
         </div>
 
         <div class="col-xl-3 col-md-6">
-            <div class="card border-0 shadow-sm h-100">
+            <div class="card border-3 shadow-sm h-100">
                 <div class="card-body">
                     <div class="d-flex align-items-center">
                         <div class="flex-shrink-0">
@@ -120,7 +120,7 @@ $_SESSION['company_id'] = $company_id;
         </div>
 
         <div class="col-xl-3 col-md-6">
-            <div class="card border-0 shadow-sm h-100">
+            <div class="card border-3 shadow-sm h-100">
                 <div class="card-body">
                     <div class="d-flex align-items-center">
 
@@ -140,7 +140,7 @@ $_SESSION['company_id'] = $company_id;
         </div>
 
         <div class="col-xl-3 col-md-6">
-            <div class="card border-0 shadow-sm h-100">
+            <div class="card border-3 shadow-sm h-100">
                 <div class="card-body">
                     <div class="d-flex align-items-center">
                         <div class="flex-shrink-0">
@@ -162,38 +162,55 @@ $_SESSION['company_id'] = $company_id;
 
     <div class="row">
         <div class="col-md-6">
-            <div class="card">
+            <div class="card border-3">
                 <div class="card-header">
-                    <h5><i class="fas fa-chart-line me-2"></i>Recent Activity</h5>
+                    <h5><i class="fas fa-chart-line me-2"></i>Recent Trainings</h5>
                 </div>
                 <div class="card-body">
-                    <ul class="list-unstyled">
-                        <li class="mb-3"><i class="fas fa-user text-success me-2"></i>New application from John Doe
-                        </li>
-                        <li class="mb-3"><i class="fas fa-check text-primary me-2"></i>Internship posted
-                            successfully</li>
-                        <li class="mb-3"><i class="fas fa-envelope text-info me-2"></i>Message sent to 3 candidates
-                        </li>
-                        <li class="mb-3"><i class="fas fa-star text-warning me-2"></i>Profile updated</li>
-                    </ul>
+                    <table class="table">
+                        <tbody>
+                            <?php
+                            include('../dbms/connection.php');
+                            $query = "SELECT i.*, c.id AS company_name 
+                            FROM internships i
+                            INNER JOIN companies c ON i.company_id = c.id
+                            WHERE c.user_id = $user_id";
+                            $result = mysqli_query($db, $query);
+                            $sno = 1;
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                ?>
+                                <tr>
+                                    <td scope="row"><?php echo $sno ?></td>
+                                    <td><?php echo $row["title"] ?></td>
+                                    <td><?php echo $row["duration"] ?></td>
+                                    <td><?php echo $row["last_date"] ?></td>
+                                    <td><?php echo $row["status"] ?></td>
+                                </tr>
+                                <?php
+                                $sno++;
+                            }
+                            ?>
+
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
         <div class="col-md-6">
-            <div class="card">
+            <div class="card border-3">
                 <div class="card-header">
                     <h5><i class="fas fa-bullhorn me-2"></i>Quick Actions</h5>
                 </div>
                 <div class="card-body">
                     <a href="companyOpportunities.php"><button class="btn btn-gradient mb-2 w-100">
-                        <i class="fas fa-plus me-2"></i>Post New Opportunity
-                    </button></a>
+                            <i class="fas fa-plus me-2"></i>Post New Opportunity
+                        </button></a>
                     <a href="companyApproval.php"><button class="btn btn-gradient mb-2 w-100">
-                        <i class="fas fa-eye me-2"></i>Review Applications
-                    </button></a>
+                            <i class="fas fa-eye me-2"></i>Review Applications
+                        </button></a>
                     <a href="companyMessage.php"><button class="btn btn-gradient w-100">
-                        <i class="fas fa-envelope me-2"></i>Contact Students
-                    </button></a>
+                            <i class="fas fa-envelope me-2"></i>Contact Students
+                        </button></a>
                 </div>
             </div>
         </div>
