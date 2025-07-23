@@ -20,7 +20,7 @@ if (isset($_GET['id'])) {
         padding-top: 70px;
         padding-bottom: 70px;
         background: rgb(157,168,172);
-                    url('https://images.unsplash.com/photo-1605902711622-cfb43c4437d2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80') no-repeat center center;
+        url('https://images.unsplash.com/photo-1605902711622-cfb43c4437d2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80') no-repeat center center;
         background-size: cover;
         box-shadow: 0 2px 10px rgba(0,0,0,0.3);
     ">
@@ -37,7 +37,7 @@ if (isset($_GET['id'])) {
 </div>
 
 <!-- Main Content -->
-<div class="container-fluid mt-4">
+<div class="container">
 
     <!-- Stats Cards -->
     <div class="row g-4 mb-5">
@@ -134,7 +134,8 @@ if (isset($_GET['id'])) {
                         <div class="flex-grow-1 ms-3">
                             <h3 class="fw-bold mb-0"><?php echo $totalInternships ?></h3>
                             <p class="text-muted mb-0">Active Internships</p>
-                            <small class="text-success"><i class="fas fa-arrow-up"></i><?php echo " +" . $row['title'];?></small>
+                            <small class="text-success"><i
+                                    class="fas fa-arrow-up"></i><?php echo " +" . $row['title']; ?></small>
                         </div>
                     </div>
                 </div>
@@ -165,7 +166,8 @@ if (isset($_GET['id'])) {
                         <div class="flex-grow-1 ms-3">
                             <h3 class="fw-bold mb-0"><?php echo $totalPeople ?></h3>
                             <p class="text-muted mb-0">Applications Today</p>
-                            <small class="text-success"><i class="fas fa-arrow-up"></i><?php echo " +" . $row['applications'];?></small>
+                            <small class="text-success"><i
+                                    class="fas fa-arrow-up"></i><?php echo " +" . $row['applications']; ?></small>
                         </div>
                     </div>
                 </div>

@@ -66,7 +66,7 @@ $_SESSION['company_id'] = $company_id;
                             <h3 class="fw-bold mb-0"><?php echo ucfirst($status); ?></h3>
                             <p class="text-muted mb-0"><?php echo $companyName; ?></p>
                             <small class="text-success"><i class="fas fa-circle"
-                                    style="font-size: 8px;vertical-align: middle;top: -1px;"></i> Status</small>
+                             style="font-size: 8px;vertical-align: middle;top: -1px;"></i> Status</small>
 
                         </div>
                     </div>
