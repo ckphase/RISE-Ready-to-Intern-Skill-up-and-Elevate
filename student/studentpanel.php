@@ -1,11 +1,25 @@
 <?php
-session_start();
-$student_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
-$_SESSION['student_id'] = $student_id;
-include('studentheader.php');
-include('../dbms/connection.php');
-?>
+session_start(); // ✅ Always at the top
 
+// Store company_id from URL into session once
+if (isset($_GET['id'])) {
+    $_SESSION['student_id'] = intval($_GET['id']);
+}
+
+// Now retrieve it
+if (!isset($_SESSION['student_id'])) {
+    // Redirect if ID is missing
+    header("Location: companyLogin.php");
+    exit();
+}
+
+$student_id = $_SESSION['student_id'];
+
+include("studentheader.php");
+include('../dbms/connection.php');
+
+// Now you can safely use $company_id in your queries
+?>
 <!-- Breadcrumb Section -->
 <div class="container-fluid text-white" style="
     background: rgba(109, 182, 209, 1);

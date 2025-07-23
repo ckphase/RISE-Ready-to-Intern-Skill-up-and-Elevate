@@ -99,6 +99,11 @@
   </style>
 </head>
 <body>
+      <!-- <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div> -->
   <!-- Navbar Start -->
         <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
             <a href="index.php" class="navbar-brand d-flex align-items-center text-center py-0 px-4 px-lg-5">
@@ -114,22 +119,6 @@
                     <a href="studentCompanies.php" class="nav-item nav-link">Companies</a>
                     <a href="studentApplication.php" class="nav-item nav-link">Applications</a>
                     <a href="studnetMessages.php" class="nav-item nav-link">Messages</a>
-                    <a href="../admin/adminDashboard.php" class="nav-item nav-link">admin</a>
-                    <!-- <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Services</a>
-                        <div class="dropdown-menu rounded-0 m-0">
-                           
-                        </div>
-                    </div>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">More</a>
-                        <div class="dropdown-menu rounded-0 m-0">
-                            <a href="category.php" class="dropdown-item">Categories</a>
-                            <a href="testimonial.php" class="dropdown-item">Reviews</a>
-                        </div>
-                    </div>
-                    <a href="contact.php" class="nav-item nav-link">Contact</a>
-                </div> -->
                 <a href="../dbms/logout.php" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Logout<i class="fa fa-arrow-right ms-3"></i></a>
             </div>
         </nav>
