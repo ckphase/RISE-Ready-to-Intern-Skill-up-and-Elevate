@@ -1,13 +1,24 @@
 <?php
+session_start(); // ✅ Always at the top
+
+// Store company_id from URL into session once
+if (isset($_GET['id'])) {
+    $_SESSION['company_id'] = intval($_GET['id']);
+}
+
+// Now retrieve it
+if (!isset($_SESSION['company_id'])) {
+    // Redirect if ID is missing
+    header("Location: companyLogin.php");
+    exit();
+}
+
+$company_id = $_SESSION['company_id'];
+
 include("companyHeader.php");
 include('../dbms/connection.php');
 
-session_start();
-
-$company_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
-
-// Optional: Store in session
-$_SESSION['company_id'] = $company_id;
+// Now you can safely use $company_id in your queries
 ?>
 
 
