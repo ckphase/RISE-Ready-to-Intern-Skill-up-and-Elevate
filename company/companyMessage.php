@@ -1,10 +1,50 @@
 <?php
+session_start(); // ✅ Always at the top
+
+// Store company_id from URL into session once
+if (isset($_GET['id'])) {
+    $_SESSION['company_id'] = intval($_GET['id']);
+}
+
+// Now retrieve it
+if (!isset($_SESSION['company_id'])) {
+    // Redirect if ID is missing
+    header("Location: companyLogin.php");
+    exit();
+}
+
+$company_id = $_SESSION['company_id'];
+
 include("companyHeader.php");
-?>   
+include('../dbms/connection.php');
+
+// Now you can safely use $company_id in your queries
+?>
+
+<div class="container-fluid text-white" style="
+    background: rgba(136, 211, 238, 1);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    padding-top:40px;
+    padding-bottom:40px;
+">
+
+    <div class="container">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
+            <div>
+                <h2 class="fw-bold mb-1 text-black text-border" style="letter-spacing: 1px;">Contact Your Candidates
+                </h2>
+                <h4 class="mb-0 text-camelcase text-light">RISE Email Page</h4>
+            </div>
+        </div>
+    </div>
+</div> 
 <div class="container">
        <!-- Contact Section -->
-        <div id="contact" class="content-section">
-            <h2 class="mb-4"><i class="fas fa-envelope me-2 mt-4"></i>Contact Selected Students</h2>
+        <div id="contact" class="content-section py-3">
+            <h2 class="mb-4">Contact Selected Students</h2>
             <div class="row">
                 <div class="col-md-4">
                     <div class="card">

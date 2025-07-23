@@ -21,8 +21,6 @@ include('../dbms/connection.php');
 // Now you can safely use $company_id in your queries
 ?>
 
-
-
 <div class="container-fluid text-white" style="
     background: rgba(136, 211, 238, 1);
     background-repeat: no-repeat;
