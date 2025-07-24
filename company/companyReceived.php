@@ -45,7 +45,7 @@ include('../dbms/connection.php');
        <!-- Applications Section -->
         <div id="applications" class="content-section py-4">
             <h2 class="mb-4">Student Applications</h2>
-            <div class="card">
+            <div class="card border-3">
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table">

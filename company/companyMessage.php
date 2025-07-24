@@ -47,7 +47,7 @@ include('../dbms/connection.php');
             <h2 class="mb-4">Contact Selected Students</h2>
             <div class="row">
                 <div class="col-md-4">
-                    <div class="card">
+                    <div class="card border-3">
                         <div class="card-header">
                             <h5>Selected Students</h5>
                         </div>
@@ -88,7 +88,7 @@ include('../dbms/connection.php');
                     </div>
                 </div>
                 <div class="col-md-8">
-                    <div class="card">
+                    <div class="card border-3">
                         <div class="card-header">
                             <h5>Compose Message</h5>
                         </div>

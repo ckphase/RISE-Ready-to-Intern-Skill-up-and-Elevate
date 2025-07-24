@@ -31,7 +31,7 @@ include('../dbms/connection.php');
     padding-bottom:70px;
 ">
     <?php
-    $query = "SELECT * FROM `users` WHERE role = 'company' AND status = 'active' AND id = $company_id";
+    $query = "SELECT * FROM `users` WHERE role = 'company' AND id = $company_id";
     $result = mysqli_query($db, $query);
 
     if ($result && mysqli_num_rows($result) > 0) {
@@ -75,7 +75,7 @@ include('../dbms/connection.php');
                             <h3 class="fw-bold mb-0"><?php echo ucfirst($status); ?></h3>
                             <p class="text-muted mb-0"><?php echo $companyName; ?></p>
                             <small class="text-success"><i class="fas fa-circle"
-                             style="font-size: 8px;vertical-align: middle;top: -1px;"></i> Status</small>
+                                    style="font-size: 8px;vertical-align: middle;top: -1px;"></i> Status</small>
 
                         </div>
                     </div>
@@ -121,7 +121,8 @@ include('../dbms/connection.php');
                         <div class="flex-grow-1 ms-3">
                             <h3 class="fw-bold mb-0"><?php echo $totalInternships ?></h3>
                             <p class="text-muted mb-0">Total Interships</p>
-                            <small class="text-success"><i class="fas fa-arrow-up"></i> +5%</small>
+                            <small class="text-success"><i
+                                    class="fas fa-arrow-up"></i><?php echo " +" . $totalInternships; ?></small>
                         </div>
                     </div>
                 </div>
@@ -141,7 +142,8 @@ include('../dbms/connection.php');
                         <div class="flex-grow-1 ms-3">
                             <h3 class="fw-bold mb-0"><?php echo $activeInternships ?></h3>
                             <p class="text-muted mb-0">Active Internships</p>
-                            <small class="text-success"><i class="fas fa-arrow-up"></i>20</small>
+                            <small class="text-success"><i
+                                    class="fas fa-arrow-up"></i><?php echo " +" . $activeInternships; ?></small>
                         </div>
                     </div>
                 </div>
@@ -161,7 +163,7 @@ include('../dbms/connection.php');
                         <div class="flex-grow-1 ms-3">
                             <h3 class="fw-bold mb-0">0</h3>
                             <p class="text-muted mb-0">Applications Today</p>
-                            <small class="text-success"><i class="fas fa-arrow-up"></i> +23%</small>
+                            <small class="text-success"><i class="fas fa-arrow-up"></i> +0</small>
                         </div>
                     </div>
                 </div>
