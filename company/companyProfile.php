@@ -1,14 +1,11 @@
 <?php
-session_start(); // ✅ Always at the top
+session_start();
 
-// Store company_id from URL into session once
 if (isset($_GET['id'])) {
     $_SESSION['company_id'] = intval($_GET['id']);
 }
 
-// Now retrieve it
 if (!isset($_SESSION['company_id'])) {
-    // Redirect if ID is missing
     header("Location: companyLogin.php");
     exit();
 }
@@ -18,7 +15,25 @@ $company_id = $_SESSION['company_id'];
 include("companyHeader.php");
 include('../dbms/connection.php');
 
-// Now you can safely use $company_id in your queries
+// Fetch from `users` and `company` tables
+$query = "SELECT 
+            u.name, u.email, u.contact, u.status,
+            c.company_name, c.description, c.location, c.approval_status, c.industry, c.website
+          FROM users u 
+          LEFT JOIN companies c ON u.id = c.user_id
+          WHERE u.id = ? AND u.role = 'company'";
+
+$stmt = $db->prepare($query);
+$stmt->bind_param("i", $company_id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows === 1) {
+    $data = $result->fetch_assoc();
+} else {
+    echo "<div class='alert alert-danger'>No company data found.</div>";
+    exit();
+}
 ?>
 
 <div class="container-fluid text-white" style="
@@ -51,7 +66,7 @@ include('../dbms/connection.php');
                     <div class="text-center">
                         <img src="..\img\default_pp.jpg" class="img-thumbnail rounded-circle border-0" alt="no image found">
                         <h6 class="pt-2">Upload New Image</h6>
-                        <input type="file">
+                        <input type="file" value="">
                     </div>
                     <div class="row py-2">
                         <div class="col-12">
@@ -64,7 +79,7 @@ include('../dbms/connection.php');
                         <div class="col-12">
                             <div class="card rounded-0 border-top-0 rounded-bottom">
                                 <div class="card-body py-1">
-                                    Jennie Ruby
+                                    <?php echo htmlspecialchars($data['name']); ?>
                                 </div>
                             </div>
                         </div>
@@ -80,7 +95,7 @@ include('../dbms/connection.php');
                         <div class="col-12">
                             <div class="card rounded-0 border-top-0">
                                 <div class="card-body py-1">
-                                    1010X - 1010X
+                                    <?php echo htmlspecialchars($data['contact']); ?>
                                 </div>
                             </div>
                         </div>
@@ -88,7 +103,7 @@ include('../dbms/connection.php');
                         <div class="col-12">
                             <div class="card rounded-0 border-top-0 rounded-bottom">
                                 <div class="card-body py-1">
-                                    user@example.com
+                                    <?php echo htmlspecialchars($data['email']); ?>
                                 </div>
                             </div>
                         </div>
@@ -105,36 +120,31 @@ include('../dbms/connection.php');
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Company Name</label>
-                                <input type="text" class="form-control" value="TechCorp Solutions">
+                                <input type="text" class="form-control" value="<?php echo htmlspecialchars($data['company_name']); ?>">
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Industry</label>
-                                <select class="form-select">
-                                    <option selected>Technology</option>
-                                    <option>Healthcare</option>
-                                    <option>Finance</option>
-                                    <option>Education</option>
-                                </select>
+                                <input type="text" class="form-control" value="<?php echo htmlspecialchars($data['industry']); ?>">                            
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Email</label>
-                                <input type="email" class="form-control" value="contact@techcorp.com">
+                                <input type="email" class="form-control" value="<?php echo htmlspecialchars($data['email']); ?>">
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Phone</label>
-                                <input type="tel" class="form-control" value="+1 (555) 123-4567">
+                                <input type="tel" class="form-control" value="<?php echo htmlspecialchars($data['contact']); ?>">
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Address</label>
-                            <textarea class="form-control" rows="3">123 Tech Street, Silicon Valley, CA 94000</textarea>
+                            <label class="form-label">Location</label>
+                            <textarea class="form-control" rows="3" value="<?php echo htmlspecialchars($data['location']); ?>"></textarea>
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Website</label>
-                                <input type="url" class="form-control" value="https://techcorp.com">
+                                <input type="url" class="form-control" value="<?php echo htmlspecialchars($data['website']); ?>">
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Company Size</label>
@@ -148,7 +158,7 @@ include('../dbms/connection.php');
                         <div class="mb-3">
                             <label class="form-label">Company Description</label>
                             <textarea class="form-control"
-                                rows="4">Leading technology solutions provider specializing in software development and digital transformation.</textarea>
+                                rows="4" value="<?php echo htmlspecialchars($data['description']); ?>"></textarea>
                         </div>
                         <button type="submit" class="btn btn-gradient">
                             <i class="fas fa-save me-2"></i>Update Profile

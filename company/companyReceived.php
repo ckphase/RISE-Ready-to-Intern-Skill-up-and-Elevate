@@ -1,11 +1,51 @@
 <?php
+session_start(); // ✅ Always at the top
+
+// Store company_id from URL into session once
+if (isset($_GET['id'])) {
+    $_SESSION['company_id'] = intval($_GET['id']);
+}
+
+// Now retrieve it
+if (!isset($_SESSION['company_id'])) {
+    // Redirect if ID is missing
+    header("Location: companyLogin.php");
+    exit();
+}
+
+$company_id = $_SESSION['company_id'];
+
 include("companyHeader.php");
+include('../dbms/connection.php');
+
+// Now you can safely use $company_id in your queries
 ?>
+
+<div class="container-fluid text-white" style="
+    background: rgba(136, 211, 238, 1);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    padding-top:40px;
+    padding-bottom:40px;
+">
+
+    <div class="container">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
+            <div>
+                <h2 class="fw-bold mb-1 text-black text-border" style="letter-spacing: 1px;">Review Applications
+                </h2>
+                <h4 class="mb-0 text-camelcase text-light">RISE Applications Page</h4>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="container">
        <!-- Applications Section -->
-        <div id="applications" class="content-section">
-            <h2 class="mb-4"><i class="fas fa-file-alt me-2 mt-4"></i>Student Applications</h2>
-            <div class="card">
+        <div id="applications" class="content-section py-4">
+            <h2 class="mb-4">Student Applications</h2>
+            <div class="card border-3">
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table">
