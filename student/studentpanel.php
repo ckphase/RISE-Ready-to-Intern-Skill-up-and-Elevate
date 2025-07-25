@@ -147,32 +147,7 @@ include('../dbms/connection.php');
                         <h5><i class="fas fa-chart-line me-2"></i>Recent Trainings</h5>
                     </div>
                     <div class="card-body">
-                        <table class="table">
-                            <tbody>
-                                <?php
-                                include('../dbms/connection.php');
-                                $query = "SELECT a.*, u.id AS student_name 
-                                FROM applications a
-                                INNER JOIN users u ON a.student_id = u.id
-                                WHERE a.student_id = $student_id";
-                                $result = mysqli_query($db, $query);
-                                $sno = 1;
-                                while ($row = mysqli_fetch_assoc($result)) {
-                                    ?>
-                                    <tr>
-                                        <td scope="row"><?php echo $sno ?></td>
-                                        <td><?php echo $row["title"] ?></td>
-                                        <td><?php echo $row["duration"] ?></td>
-                                        <td><?php echo $row["last_date"] ?></td>
-                                        <td><?php echo $row["status"] ?></td>
-                                    </tr>
-                                    <?php
-                                    $sno++;
-                                }
-                                ?>
-
-                            </tbody>
-                        </table>
+              
                     </div>
                 </div>
             </div>
