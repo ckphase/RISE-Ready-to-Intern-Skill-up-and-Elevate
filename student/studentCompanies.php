@@ -1,187 +1,84 @@
 <?php
-session_start(); // ✅ Always at the top
-
-// Store company_id from URL into session once
-if (isset($_GET['id'])) {
-    $_SESSION['company_id'] = intval($_GET['id']);
-}
-
-// Now retrieve it
-if (!isset($_SESSION['company_id'])) {
-    // Redirect if ID is missing
-    header("Location: companyLogin.php");
+session_start();
+if (!isset($_SESSION['student_id'])) {
+    header("Location: studentLogin.php");
     exit();
 }
-
-$company_id = $_SESSION['company_id'];
 
 include("studentheader.php");
 include('../dbms/connection.php');
 
-// Now you can safely use $company_id in your queries
+// Handle flash message (after applying)
+if (isset($_SESSION['msg'])) {
+    echo "<div class='alert alert-info text-center'>".$_SESSION['msg']."</div>";
+    unset($_SESSION['msg']);
+}
+
+// Fetch all open internships
+$sql = "SELECT * FROM internships WHERE status = 'open' ORDER BY created_at DESC";
+$result = mysqli_query($db, $sql);
 ?>
 
-<div class="container-fluid text-white" style="
-    background: rgba(136, 211, 238, 1);
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-    padding-top:40px;
-    padding-bottom:40px;
-">
+<!-- Bootstrap Container -->
+<div class="container my-5">
+    <h2 class="mb-4">Available Internships</h2>
 
-    <div class="container">
-        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
-            <div>
-                <h2 class="fw-bold mb-1 text-black text-border" style="letter-spacing: 1px;">Your Profile and Details
-                </h2>
-                <h4 class="mb-0 text-camelcase text-light">RISE Profile Page</h4>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Companies Section -->
-<div id="companies">
-    <div class="container-xxl">
-        <h2 class="mb-4">Available Companies</h2>
-
-        <div class="card mb-4">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-8 mb-3">
-                        <input type="text" class="form-control" placeholder="Search companies...">
-                    </div>
-                    <div class="col-md-4">
-                        <select class="form-select">
-                            <option value="all">All Industries</option>
-                            <option value="technology">Technology</option>
-                            <option value="finance">Finance</option>
-                            <option value="healthcare">Healthcare</option>
-                            <option value="consulting">Consulting</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+    <?php if (mysqli_num_rows($result) > 0): ?>
         <div class="row">
-            <div class="col-md-6 col-lg-4 mb-4">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h5 class="card-title text-primary">
-                            <i class="fas fa-laptop me-2"></i>TechCorp Solutions
-                        </h5>
-                        <p class="card-text">
-                            <strong>Industry:</strong> Software Development<br>
-                            <strong>Location:</strong> San Francisco, CA<br>
-                            <strong>Positions:</strong> Software Engineering Intern, UI/UX Design Intern<br>
-                            <strong>Duration:</strong> 3-6 months
-                        </p>
-                        <button class="btn btn-primary w-100">
-                            <i class="fas fa-eye me-1"></i>View Opportunities
-                        </button>
+            <?php while ($row = mysqli_fetch_assoc($result)):
+                $id = $row['id'];
+            ?>
+                <!-- Internship Card -->
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title text-primary">
+                                <i class="fas fa-briefcase me-2"></i> <?= htmlspecialchars($row['title']) ?>
+                            </h5>
+                            <p class="card-text">
+                                <strong>Location:</strong> <?= htmlspecialchars($row['location']) ?><br>
+                                <strong>Duration:</strong> <?= htmlspecialchars($row['duration']) ?><br>
+                                <strong>Stipend:</strong> <?= htmlspecialchars($row['stipend']) ?><br>
+                                <strong>Apply By:</strong> <?= date("d M Y", strtotime($row['last_date'])) ?>
+                            </p>
+                            <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modal<?= $id ?>">
+                                View Details
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-md-6 col-lg-4 mb-4">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h5 class="card-title text-primary">
-                            <i class="fas fa-chart-line me-2"></i>DataFlow Analytics
-                        </h5>
-                        <p class="card-text">
-                            <strong>Industry:</strong> Data Science & Analytics<br>
-                            <strong>Location:</strong> New York, NY<br>
-                            <strong>Positions:</strong> Data Science Trainee, Business Analyst Intern<br>
-                            <strong>Duration:</strong> 4-8 months
-                        </p>
-                        <button class="btn btn-primary w-100">
-                            <i class="fas fa-eye me-1"></i>View Opportunities
-                        </button>
+                <!-- Modal with Apply Form -->
+                <div class="modal fade" id="modal<?= $id ?>" tabindex="-1" aria-labelledby="modalLabel<?= $id ?>" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-scrollable">
+                        <div class="modal-content">
+                            <div class="modal-header bg-primary text-white">
+                                <h5 class="modal-title" id="modalLabel<?= $id ?>"><?= htmlspecialchars($row['title']) ?></h5>
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p><strong>Description:</strong><br><?= nl2br(htmlspecialchars($row['description'])) ?></p>
+                                <p><strong>Location:</strong> <?= htmlspecialchars($row['location']) ?></p>
+                                <p><strong>Duration:</strong> <?= htmlspecialchars($row['duration']) ?></p>
+                                <p><strong>Stipend:</strong> <?= htmlspecialchars($row['stipend']) ?></p>
+                                <p><strong>Last Date:</strong> <?= date("d M Y", strtotime($row['last_date'])) ?></p>
+                            </div>
+                            <form action="applyInternship.php" method="POST">
+                                <input type="hidden" name="student_id" value="<?= $_SESSION['student_id'] ?>">
+                                <input type="hidden" name="internship_id" value="<?= $id ?>">
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-success w-50">Apply</button>
+                                    <button type="button" class="btn btn-secondary w-50" data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="col-md-6 col-lg-4 mb-4">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h5 class="card-title text-primary">
-                            <i class="fas fa-brain me-2"></i>InnovateLab
-                        </h5>
-                        <p class="card-text">
-                            <strong>Industry:</strong> AI & Machine Learning<br>
-                            <strong>Location:</strong> Austin, TX<br>
-                            <strong>Positions:</strong> ML Engineering Intern, Research Assistant<br>
-                            <strong>Duration:</strong> 6 months
-                        </p>
-                        <button class="btn btn-primary w-100">
-                            <i class="fas fa-eye me-1"></i>View Opportunities
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-4 mb-4">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h5 class="card-title text-primary">
-                            <i class="fas fa-heartbeat me-2"></i>HealthTech Innovations
-                        </h5>
-                        <p class="card-text">
-                            <strong>Industry:</strong> Healthcare Technology<br>
-                            <strong>Location:</strong> Boston, MA<br>
-                            <strong>Positions:</strong> Software Developer Intern, Product Management Trainee<br>
-                            <strong>Duration:</strong> 3-4 months
-                        </p>
-                        <button class="btn btn-primary w-100">
-                            <i class="fas fa-eye me-1"></i>View Opportunities
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-4 mb-4">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h5 class="card-title text-primary">
-                            <i class="fas fa-briefcase me-2"></i>Strategic Consulting Group
-                        </h5>
-                        <p class="card-text">
-                            <strong>Industry:</strong> Management Consulting<br>
-                            <strong>Location:</strong> Chicago, IL<br>
-                            <strong>Positions:</strong> Business Analyst Intern, Strategy Consultant Trainee<br>
-                            <strong>Duration:</strong> 10-12 weeks
-                        </p>
-                        <button class="btn btn-primary w-100">
-                            <i class="fas fa-eye me-1"></i>View Opportunities
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-4 mb-4">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h5 class="card-title text-primary">
-                            <i class="fas fa-university me-2"></i>FinanceFlow Corp
-                        </h5>
-                        <p class="card-text">
-                            <strong>Industry:</strong> Financial Services<br>
-                            <strong>Location:</strong> New York, NY<br>
-                            <strong>Positions:</strong> Financial Analyst Intern, Risk Management Trainee<br>
-                            <strong>Duration:</strong> 12 weeks
-                        </p>
-                        <button class="btn btn-primary w-100">
-                            <i class="fas fa-eye me-1"></i>View Opportunities
-                        </button>
-                    </div>
-                </div>
-            </div>
+            <?php endwhile; ?>
         </div>
-    </div>
+    <?php else: ?>
+        <div class="alert alert-warning">No internships available at the moment.</div>
+    <?php endif; ?>
 </div>
-<?php
-include('studentfooter.php');
-?>
+
+<?php include('studentfooter.php'); ?>

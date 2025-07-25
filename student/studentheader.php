@@ -118,7 +118,7 @@
                     <a href="studentProfilePage.php" class="nav-item nav-link">Profile</a>
                     <a href="studentCompanies.php" class="nav-item nav-link">Companies</a>
                     <a href="studentApplication.php" class="nav-item nav-link">Applications</a>
-                    <a href="studnetMessages.php" class="nav-item nav-link">Messages</a>
+                    <!-- <a href="studnetMessages.php" class="nav-item nav-link">Messages</a> -->
                 <a href="../dbms/logout.php" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Logout<i class="fa fa-arrow-right ms-3"></i></a>
             </div>
         </nav>
