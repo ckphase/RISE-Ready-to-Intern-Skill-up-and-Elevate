@@ -1,24 +1,30 @@
 <?php
-session_start(); // ✅ Always at the top
+session_start();
+include('studentheader.php');
+include('../dbms/connection.php');
 
-// Store company_id from URL into session once
-if (isset($_GET['id'])) {
-    $_SESSION['company_id'] = intval($_GET['id']);
-}
-
-// Now retrieve it
-if (!isset($_SESSION['company_id'])) {
-    // Redirect if ID is missing
+if (!isset($_SESSION['student_id'])) {
     header("Location: companyLogin.php");
     exit();
 }
 
-$company_id = $_SESSION['company_id'];
+$student_id = $_SESSION['student_id'];
+$profile = [];
+$user = [];
 
-include("studentheader.php");
-include('../dbms/connection.php');
+// Fetch user (from users table)
+$userQuery = "SELECT * FROM users WHERE id = $student_id";
+$userResult = mysqli_query($db, $userQuery);
+if ($userResult && mysqli_num_rows($userResult) > 0) {
+    $user = mysqli_fetch_assoc($userResult);
+}
 
-// Now you can safely use $company_id in your queries
+// Fetch profile (from student_profiles)
+$profileQuery = "SELECT * FROM students WHERE user_id = $student_id";
+$profileResult = mysqli_query($db, $profileQuery);
+if ($profileResult && mysqli_num_rows($profileResult) > 0) {
+    $profile = mysqli_fetch_assoc($profileResult);
+}
 ?>
 
 <div class="container-fluid text-white" style="
@@ -43,95 +49,66 @@ include('../dbms/connection.php');
 </div>
 <!-- Applications Section -->
 <div id="applications">
-    <div class="container-xxl">
+    <div class="container-xxl py-4">
         <h2 class="mb-4">My Applications</h2>
 
-        <div class="card mb-3">
-            <div class="card-body">
-                <div class="row align-items-center">
-                    <div class="col-md-8">
-                        <h5 class="card-title mb-1">Software Engineering Intern</h5>
-                        <p class="text-muted mb-1"><strong>TechCorp Solutions</strong></p>
-                        <small class="text-muted">Applied: March 15, 2024 | Application ID: #APP001</small>
-                    </div>
-                    <div class="col-md-4 text-end">
-                        <span class="badge bg-warning fs-6">
-                            <i class="fas fa-clock me-1"></i>Under Review
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <?php
+        $query = "
+            SELECT a.*, i.title AS internship_title, i.created_at, c.company_name AS company_name
+            FROM applications a
+            JOIN internships i ON a.internship_id = i.id
+            JOIN companies c ON i.company_id = c.id
+            WHERE a.student_id = $student_id
+            ORDER BY a.applied_at DESC
+        ";
+        $result = mysqli_query($db, $query);
 
-        <div class="card mb-3">
-            <div class="card-body">
-                <div class="row align-items-center">
-                    <div class="col-md-8">
-                        <h5 class="card-title mb-1">Data Science Trainee</h5>
-                        <p class="text-muted mb-1"><strong>DataFlow Analytics</strong></p>
-                        <small class="text-muted">Applied: March 10, 2024 | Application ID: #APP002</small>
-                    </div>
-                    <div class="col-md-4 text-end">
-                        <span class="badge bg-info fs-6">
-                            <i class="fas fa-calendar-check me-1"></i>Interview Scheduled
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
+        if (mysqli_num_rows($result) > 0):
+            while ($row = mysqli_fetch_assoc($result)):
+                $statusClass = match ($row['status']) {
+                    'applied' => 'bg-secondary',
+                    'under_review' => 'bg-warning',
+                    'interview' => 'bg-info',
+                    'offer' => 'bg-success',
+                    'rejected' => 'bg-danger',
+                    default => 'bg-light text-dark'
+                };
+                ?>
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-8">
+                                <h5 class="card-title mb-1"><?= htmlspecialchars($row['internship_title']) ?></h5>
+                                <p class="text-muted mb-1"><strong><?= htmlspecialchars($row['company_name']) ?></strong></p>
+                                <small class="text-muted">
+                                    Applied: <?= date("F d, Y", strtotime($row['applied_at'])) ?> |
+                                    Application ID: #APP<?= str_pad($row['id'], 3, '0', STR_PAD_LEFT) ?>
+                                </small>
+                            </div>
+                            <div class="col-md-4 text-end">
+                                <span class="badge <?= $statusClass ?> fs-6 mb-2 d-block">
+                                    <?= ucwords(str_replace('_', ' ', $row['status'])) ?>
+                                </span>
+                                <?php if (in_array($row['status'], ['applied', 'under_review'])): ?>
+                                    <form method="POST" action="withdrawApplication.php"
+                                        onsubmit="return confirm('Are you sure you want to withdraw this application?');">
+                                        <input type="hidden" name="application_id" value="<?= $row['id'] ?>">
+                                        <button type="submit" class="btn btn-outline-danger btn-sm w-100">
+                                   Withdraw
+                                        </button>
+                                    </form>
+                                <?php endif; ?>
+                            </div>
 
-        <div class="card mb-3">
-            <div class="card-body">
-                <div class="row align-items-center">
-                    <div class="col-md-8">
-                        <h5 class="card-title mb-1">ML Engineering Intern</h5>
-                        <p class="text-muted mb-1"><strong>InnovateLab</strong></p>
-                        <small class="text-muted">Applied: March 8, 2024 | Application ID: #APP003</small>
-                    </div>
-                    <div class="col-md-4 text-end">
-                        <span class="badge bg-success fs-6">
-                            <i class="fas fa-trophy me-1"></i>Offer Extended
-                        </span>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <div class="card mb-3">
-            <div class="card-body">
-                <div class="row align-items-center">
-                    <div class="col-md-8">
-                        <h5 class="card-title mb-1">UI/UX Design Intern</h5>
-                        <p class="text-muted mb-1"><strong>CreativeStudio</strong></p>
-                        <small class="text-muted">Applied: March 5, 2024 | Application ID: #APP004</small>
-                    </div>
-                    <div class="col-md-4 text-end">
-                        <span class="badge bg-danger fs-6">
-                            <i class="fas fa-times-circle me-1"></i>Not Selected
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="card mb-3">
-            <div class="card-body">
-                <div class="row align-items-center">
-                    <div class="col-md-8">
-                        <h5 class="card-title mb-1">Business Analyst Intern</h5>
-                        <p class="text-muted mb-1"><strong>Strategic Consulting Group</strong></p>
-                        <small class="text-muted">Applied: March 1, 2024 | Application ID: #APP005</small>
-                    </div>
-                    <div class="col-md-4 text-end">
-                        <span class="badge bg-secondary fs-6">
-                            <i class="fas fa-paper-plane me-1"></i>Application Submitted
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
+            <?php endwhile; else: ?>
+            <div class="alert alert-warning text-center">You haven't applied to any internships yet.</div>
+        <?php endif; ?>
     </div>
 </div>
+
 <?php
 include('studentfooter.php');
 ?>

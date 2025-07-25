@@ -16,7 +16,7 @@ include("companyHeader.php");
 include('../dbms/connection.php'); // This should define $conn
 
 $message = "";
-$cid = "";
+
 // ✅ Step: Validate if company_id exists in companies table
 $check = mysqli_query($db, "SELECT id FROM companies WHERE user_id = '$company_id'");
 // echo $company_id;
