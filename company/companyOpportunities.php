@@ -1,14 +1,11 @@
 <?php
-session_start(); // ✅ Always at the top
+session_start();
 
-// Store company_id from URL into session once
 if (isset($_GET['id'])) {
     $_SESSION['company_id'] = intval($_GET['id']);
 }
 
-// Now retrieve it
 if (!isset($_SESSION['company_id'])) {
-    // Redirect if ID is missing
     header("Location: companyLogin.php");
     exit();
 }
@@ -16,241 +13,140 @@ if (!isset($_SESSION['company_id'])) {
 $company_id = $_SESSION['company_id'];
 
 include("companyHeader.php");
-include('../dbms/connection.php');
+include('../dbms/connection.php'); // This should define $conn
 
-// Now you can safely use $company_id in your queries
+$message = "";
+$cid = "";
+// ✅ Step: Validate if company_id exists in companies table
+$check = mysqli_query($db, "SELECT id FROM companies WHERE user_id = '$company_id'");
+// echo $company_id;
+$check = mysqli_query($db, "SELECT id FROM companies WHERE user_id = '$company_id'");
+
+if ($check && mysqli_num_rows($check) > 0) {
+    $row = mysqli_fetch_assoc($check);
+    $selected_id = $row['id']; // 
+}
+// ahhhhhhhh phew done
+if (mysqli_num_rows($check) == 0) {
+    die("<div class='alert alert-danger'>Invalid company ID. No matching company found.</div>");
+}
+
+// ✅ Handle form submission
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $title = $_POST['title'];
+    $description = $_POST['description'];
+    $location = $_POST['location'];
+    $duration = $_POST['duration'];
+    $stipend = $_POST['stipend'];
+    $last_date = $_POST['last_date'];
+
+    if (!empty($title) && !empty($description)) {
+        $query = "INSERT INTO internships (company_id, title, description, location, duration, stipend, last_date) 
+                  VALUES ('$selected_id', '$title', '$description', '$location', '$duration', '$stipend', '$last_date')";
+        $result = mysqli_query($db, $query);
+
+        if ($result) {
+            $message = "<div class='alert alert-success'>Internship posted successfully!</div>";
+        } else {
+            $message = "<div class='alert alert-danger'>Error posting internship: " . mysqli_error($db) . "</div>";
+        }
+    } else {
+        $message = "<div class='alert alert-warning'>Please fill in all required fields.</div>";
+    }
+}
+
+// ✅ Fetch posted internships
+$internships = [];
+$fetch_query = "SELECT id, title FROM internships WHERE company_id = '$selected_id' ORDER BY created_at DESC";
+$fetch_result = mysqli_query($db, $fetch_query);
+if (mysqli_num_rows($fetch_result) > 0) {
+    while ($row = mysqli_fetch_assoc($fetch_result)) {
+        $internships[] = $row;
+    }
+}
 ?>
 
-<div class="container-fluid text-white" style="
-    background: rgba(136, 211, 238, 1);
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-    padding-top:40px;
-    padding-bottom:40px;
-">
-
+<div class="container-fluid text-white" style="background: rgba(136, 211, 238, 1); padding: 40px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.3);">
     <div class="container">
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
             <div>
-                <h2 class="fw-bold mb-1 text-black text-border" style="letter-spacing: 1px;">Post and Check Your
-                    Openings
-                </h2>
-                <h4 class="mb-0 text-camelcase text-light">RISE Profile Page</h4>
+                <h2 class="fw-bold mb-1 text-black" style="letter-spacing: 1px;">Post and Check Your Openings</h2>
+                <h4 class="mb-0 text-light">RISE Post Opening Page</h4>
             </div>
         </div>
     </div>
 </div>
-<div class="container">
-    <!-- Post Opportunities Section -->
-    <!-- <div id="post-opportunities" class="content-section py-4">
-        <h2 class="mb-4">Post Internships / Trainings</h2>
-        <div class="row">
-            <div class="card border-3">
-                <div class="card-body">
-                    <form>
-                        <div class="col-6">
-                            <table border="1">
-                                <tr>
-                                    <th>Test</th>
-                                </tr>
-                            </table>
-                            <div class="col-md-6 mb-3">
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Opportunity Type</label>
-                                <select class="form-select">
-                                    <option>Select Type</option>
-                                    <option>Internship</option>
-                                    <option>Training Program</option>
-                                    <option>Part-time Job</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Position Title</label>
-                                <input type="text" class="form-control" placeholder="e.g., Software Development Intern">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Department</label>
-                                <select class="form-select">
-                                    <option>Select Department</option>
-                                    <option>Engineering</option>
-                                    <option>Marketing</option>
-                                    <option>Human Resources</option>
-                                    <option>Finance</option>
-                                    <option>Operations</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Duration</label>
-                                <input type="text" class="form-control" placeholder="e.g., 3 months">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Start Date</label>
-                                <input type="date" class="form-control">
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Application Deadline</label>
-                                <input type="date" class="form-control">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Stipend/Salary</label>
-                                <input type="text" class="form-control" placeholder="e.g., $1000/month">
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Location</label>
-                                <select class="form-select">
-                                    <option>Select Location</option>
-                                    <option>Remote</option>
-                                    <option>On-site</option>
-                                    <option>Hybrid</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Job Description</label>
-                            <textarea class="form-control" rows="4"
-                                placeholder="Describe the role, responsibilities, and what the intern/trainee will learn..."></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Requirements</label>
-                            <textarea class="form-control" rows="3"
-                                placeholder="List the required skills, qualifications, and experience..."></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Benefits</label>
-                            <textarea class="form-control" rows="2"
-                                placeholder="Mention any additional benefits or perks..."></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-gradient">
-                            <i class="fas fa-paper-plane me-2"></i>Post Opportunity
-                        </button>
-                    </form>
-                    </div>
-                </div>
-            </div>
-        </div> -->
+<div class="container py-4">
+    <?php echo $message; ?>
 
-    <div class="row py-4">
-        <div class="col-3">
-            <div class="card border-3">
+    <div class="row">
+        <!-- Posted Trainings -->
+        <div class="col-md-3 mb-4">
+            <div class="card border-3 h-100">
                 <div class="card-body">
-                    <h2>Posted Trainings</h2>
-                    <p>The list of your posted trainings is as follows: </p>
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-
-                                <th scope="col">First</th>
-                            </tr>
-                        </thead>
+                    <h4 class="card-title">Posted Trainings</h4>
+                    <table class="table table-hover table-sm">
+                        <thead><tr><th>Recently Opened</th></tr></thead>
                         <tbody>
-                            <tr>
-                                <td>Mark</td>
-                            </tr>
-                            <tr>
-                                <td>Jacob</td>
-                            </tr>
-                            <tr>
-                                <td>Jacob</td>
-                            </tr>
+                            <?php
+                            if (!empty($internships)) {
+                                foreach ($internships as $item) {
+                                    echo "<tr><td>" . htmlspecialchars($item['title']) . "</td></tr>";
+                                }
+                            } else {
+                                echo "<tr><td>No internships posted yet.</td></tr>";
+                            }
+                            ?>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-        <div class="col-9">
+
+        <!-- Form to Post Internship -->
+        <div class="col-md-9">
             <div class="card border-3">
                 <div class="card-body">
-                    <form>
-                            <div class="row">
+                    <h4 class="mb-3">Post a New Opportunity</h4>
+                    <form method="POST">
+                        <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label class="form-label">Opportunity Type</label>
-                                <select class="form-select">
-                                    <option>Select Type</option>
-                                    <option>Internship</option>
-                                    <option>Training Program</option>
-                                    <option>Part-time Job</option>
-                                </select>
+                                <label>Title</label>
+                                <input type="text" class="form-control" name="title" required>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label class="form-label">Position Title</label>
-                                <input type="text" class="form-control" placeholder="e.g., Software Development Intern">
+                                <label>Duration</label>
+                                <input type="text" class="form-control" name="duration">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label class="form-label">Department</label>
-                                <select class="form-select">
-                                    <option>Select Department</option>
-                                    <option>Engineering</option>
-                                    <option>Marketing</option>
-                                    <option>Human Resources</option>
-                                    <option>Finance</option>
-                                    <option>Operations</option>
-                                </select>
+                                <label>Application Deadline</label>
+                                <input type="date" class="form-control" name="last_date">
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label class="form-label">Duration</label>
-                                <input type="text" class="form-control" placeholder="e.g., 3 months">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Start Date</label>
-                                <input type="date" class="form-control">
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Application Deadline</label>
-                                <input type="date" class="form-control">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Stipend/Salary</label>
-                                <input type="text" class="form-control" placeholder="e.g., $1000/month">
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Location</label>
-                                <select class="form-select">
-                                    <option>Select Location</option>
-                                    <option>Remote</option>
-                                    <option>On-site</option>
-                                    <option>Hybrid</option>
-                                </select>
+                                <label>Stipend</label>
+                                <input type="text" class="form-control" name="stipend">
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Job Description</label>
-                            <textarea class="form-control" rows="4"
-                                placeholder="Describe the role, responsibilities, and what the intern/trainee will learn..."></textarea>
+                            <label>Location</label>
+                            <select class="form-select" name="location">
+                                <option value="Remote">Remote</option>
+                                <option value="On-site">On-site</option>
+                                <option value="Hybrid">Hybrid</option>
+                            </select>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Requirements</label>
-                            <textarea class="form-control" rows="3"
-                                placeholder="List the required skills, qualifications, and experience..."></textarea>
+                            <label>Description</label>
+                            <textarea class="form-control" name="description" rows="4" required></textarea>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label">Benefits</label>
-                            <textarea class="form-control" rows="2"
-                                placeholder="Mention any additional benefits or perks..."></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-gradient">
-                            <i class="fas fa-paper-plane me-2"></i>Post Opportunity
-                        </button>
+                        <button type="submit" class="btn btn-primary">Post Internship</button>
                     </form>
+                </div>
             </div>
         </div>
     </div>
+</div>
 
-</div>
-</div>
-<?php
-include("companyFooter.php");
-?>
+<?php include("companyFooter.php"); ?>
