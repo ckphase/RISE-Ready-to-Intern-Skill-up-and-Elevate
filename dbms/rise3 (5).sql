@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 12, 2025 at 06:53 PM
+-- Generation Time: Jul 26, 2025 at 05:18 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -56,8 +56,20 @@ CREATE TABLE `applications` (
   `student_id` int(11) DEFAULT NULL,
   `internship_id` int(11) DEFAULT NULL,
   `status` enum('applied','accepted','rejected','withdrawn') DEFAULT 'applied',
-  `applied_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `applied_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `company_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `applications`
+--
+
+INSERT INTO `applications` (`id`, `student_id`, `internship_id`, `status`, `applied_at`, `company_id`) VALUES
+(11, 1, 21, 'applied', '2025-07-25 16:23:45', 112),
+(12, 1, 22, 'applied', '2025-07-25 16:25:08', 112),
+(13, 1, 23, 'applied', '2025-07-25 16:34:11', 112),
+(14, 1, 25, 'applied', '2025-07-25 16:34:38', 112),
+(15, 1, 24, 'applied', '2025-07-25 17:07:07', 112);
 
 -- --------------------------------------------------------
 
@@ -72,17 +84,20 @@ CREATE TABLE `companies` (
   `description` text DEFAULT NULL,
   `approval_status` enum('pending','approved','rejected') DEFAULT 'pending',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `location` varchar(100) NOT NULL
+  `location` varchar(100) NOT NULL,
+  `industry` varchar(50) NOT NULL,
+  `website` varchar(500) NOT NULL,
+  `company_size` enum('1-10 employees','51-200 employees','201-500 employees','500 + employees') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `companies`
 --
 
-INSERT INTO `companies` (`id`, `user_id`, `company_name`, `description`, `approval_status`, `created_at`, `location`) VALUES
-(111, 3, 'Minatozaki Sana', NULL, 'pending', '2025-07-11 11:59:25', ''),
-(112, 6, 'Jennie Ruby', NULL, 'pending', '2025-07-11 11:59:25', ''),
-(113, 8, 'Irene Bae', NULL, 'pending', '2025-07-11 11:59:25', '');
+INSERT INTO `companies` (`id`, `user_id`, `company_name`, `description`, `approval_status`, `created_at`, `location`, `industry`, `website`, `company_size`) VALUES
+(111, 3, 'Minatozaki Sana', NULL, 'approved', '2025-07-11 11:59:25', '', '', '', '1-10 employees'),
+(112, 6, 'Jennie Ruby', '', 'approved', '2025-07-11 11:59:25', 'Jalandhar', 'Tech', '', '1-10 employees'),
+(113, 8, 'Irene Bae', NULL, 'pending', '2025-07-11 11:59:25', '', '', '', '1-10 employees');
 
 -- --------------------------------------------------------
 
@@ -115,9 +130,10 @@ INSERT INTO `internships` (`id`, `company_id`, `title`, `description`, `location
 (25, 113, 'Networking with Cisco', 'Learn computer networking with practical Cisco Packet Tracer labs.', 'Amritsar', '6 weeks', '₹3500 (Paid by student)', '2025-08-20', 'open', '2025-07-11 12:03:16'),
 (26, 113, 'Full Stack with MERN', 'JavaScript-heavy full stack training using MongoDB, Express, React, and Node.', 'Jalandhar', '8 weeks', '₹5000 (Paid by student)', '2025-08-22', 'open', '2025-07-11 12:03:16'),
 (27, 111, 'UI/UX Design Basics', 'Learn user interface design and tools like Figma, Adobe XD, and Canva.', 'Jalandhar', '4 weeks', '₹2500 (Paid by student)', '2025-08-25', 'open', '2025-07-11 12:03:16'),
-(28, 112, 'Cloud Computing & AWS', 'Industrial intro to cloud concepts with AWS services and live labs.', 'Patiala', '6 weeks', '₹4000 (Paid by student)', '2025-08-27', 'open', '2025-07-11 12:03:16'),
+(28, 112, 'Cloud Computing & AWS', 'Industrial intro to cloud concepts with AWS services and live labs.', 'Patiala', '6 weeks', '₹4000 (Paid by student)', '2025-08-27', 'closed', '2025-07-11 12:03:16'),
 (29, 113, 'Machine Learning Intro', 'Start with Python ML libraries like scikit-learn, NumPy, and Pandas.', 'Mohali', '6 weeks', '₹4500 (Paid by student)', '2025-08-29', 'open', '2025-07-11 12:03:16'),
-(30, 111, 'IoT & Embedded Systems', 'Arduino and sensors-based practical training for IoT projects.', 'Jalandhar', '6 weeks', '₹4200 (Paid by student)', '2025-08-30', 'open', '2025-07-11 12:03:16');
+(30, 111, 'IoT & Embedded Systems', 'Arduino and sensors-based practical training for IoT projects.', 'Jalandhar', '6 weeks', '₹4200 (Paid by student)', '2025-08-30', 'open', '2025-07-11 12:03:16'),
+(36, 112, 'PHP Web Dev', '3 months', 'Remote', '3 months', '', '0000-00-00', 'open', '2025-07-25 17:35:28');
 
 -- --------------------------------------------------------
 
@@ -160,7 +176,9 @@ INSERT INTO `reports` (`id`, `name`, `email`, `subject`, `message`, `created at`
 (5, 'Company1', 'customer5@gmail.com', 'A new company', 'We are a new company in the market. Well if u would like to work with us kindly contact us on XXX11XXX11.', '2025-07-11 11:36:57'),
 (6, 'Company2', 'customer6@gmail.com', 'Offer', 'Offering you a deal with XYZ enterprizes. Contact us asap.', '2025-07-11 11:37:17'),
 (7, 'Company3', 'customer7@gmail.com', 'Would u like to work with us ?', 'We are an emerging enterprize and can benefit you a lot. We are ready for remote intakes.', '2025-07-11 11:37:28'),
-(8, 'Customer8', 'customer8@gmail.com', 'Not able to apply', 'I am not able to apply to any company.', '2025-07-11 11:37:45');
+(8, 'Customer8', 'customer8@gmail.com', 'Not able to apply', 'I am not able to apply to any company.', '2025-07-11 11:37:45'),
+(9, '', '', '', '', '2025-07-21 09:57:59'),
+(10, 'Manav', 'manav@gmail.com', 'Regarding Intership', 'Please help me to get internship at Google.', '2025-07-26 05:28:00');
 
 -- --------------------------------------------------------
 
@@ -172,20 +190,29 @@ CREATE TABLE `students` (
   `id` int(11) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
   `resume_path` varchar(255) DEFAULT NULL,
-  `student_id` varchar(50) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `student_id` int(50) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `year_of_study` varchar(10) NOT NULL,
+  `gpa` int(10) NOT NULL,
+  `skills` text NOT NULL,
+  `experience` text NOT NULL,
+  `resume` varchar(300) NOT NULL,
+  `portfolio` varchar(300) NOT NULL,
+  `linkedin_id` varchar(300) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `students`
 --
 
-INSERT INTO `students` (`id`, `user_id`, `resume_path`, `student_id`, `created_at`) VALUES
-(8, 1, NULL, NULL, '2025-07-10 17:37:14'),
-(9, 2, NULL, NULL, '2025-07-10 17:37:14'),
-(10, 4, NULL, NULL, '2025-07-10 17:37:14'),
-(11, 7, NULL, NULL, '2025-07-10 17:37:14'),
-(12, 10, NULL, NULL, '2025-07-10 17:37:14');
+INSERT INTO `students` (`id`, `user_id`, `resume_path`, `student_id`, `created_at`, `year_of_study`, `gpa`, `skills`, `experience`, `resume`, `portfolio`, `linkedin_id`) VALUES
+(8, 1, '', 0, '2025-07-10 17:37:14', '', 0, '', '2 years', '', '', ''),
+(9, 2, NULL, NULL, '2025-07-10 17:37:14', '', 0, '', '', '', '', ''),
+(10, 4, NULL, NULL, '2025-07-10 17:37:14', '', 0, '', '', '', '', ''),
+(11, 7, NULL, NULL, '2025-07-10 17:37:14', '', 0, '', '', '', '', ''),
+(12, 10, NULL, NULL, '2025-07-10 17:37:14', '', 0, '', '', '', '', ''),
+(15, NULL, '', 0, '2025-07-25 09:26:02', '', 0, '', '', '', '', ''),
+(16, NULL, '', 0, '2025-07-25 09:26:07', '', 0, '', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -209,16 +236,20 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `contact`, `role`, `status`, `created_at`) VALUES
-(1, 'Jimin Park', 'jimin@example.com', 'hashed_password1', '9876543210', 'student', 'active', '2025-07-10 17:37:14'),
+(1, 'Jimin KIM', 'user@example.com', '123', '9876543210', 'student', 'active', '2025-07-10 17:37:14'),
 (2, 'Lisa Kim', 'lisa@example.com', 'hashed_password2', '9876543211', 'student', 'active', '2025-07-10 17:37:14'),
-(3, 'Minatozaki Sana', 'sana@example.com', 'hashed_password3', '9876543212', 'company', 'inactive', '2025-07-10 17:37:14'),
+(3, 'Minatozaki Sana', 'sana@example.com', '123', '9876543212', 'company', 'inactive', '2025-07-10 17:37:14'),
 (4, 'Kim Taehyung', 'tae@example.com', 'hashed_password4', '9876543213', 'student', 'active', '2025-07-10 17:37:14'),
-(5, 'RM Kim', 'rm@example.com', 'hashed_password5', '9876543214', 'admin', 'active', '2025-07-10 17:37:14'),
-(6, 'Jennie Ruby', 'jennie@example.com', 'hashed_password6', '9876543215', 'company', 'inactive', '2025-07-10 17:37:14'),
+(5, 'RM Kim', 'admin@example.com', '123', '9876543214', 'admin', 'active', '2025-07-10 17:37:14'),
+(6, 'Jennie Ruby', 'company@example.com', '123', '9876543215', 'company', 'active', '2025-07-10 17:37:14'),
 (7, 'Jungkook Jeon', 'jk@example.com', 'hashed_password7', '9876543216', 'student', 'active', '2025-07-10 17:37:14'),
 (8, 'Irene Bae', 'irene@example.com', 'hashed_password8', '9876543217', 'company', 'active', '2025-07-10 17:37:14'),
 (9, 'SUGA Min', 'suga@example.com', 'hashed_password9', '9876543218', 'admin', 'active', '2025-07-10 17:37:14'),
-(10, 'Chandan Kaur', 'chandan@example.com', 'hashed_password10', '9876543219', 'student', 'inactive', '2025-07-10 17:37:14');
+(10, 'Chandan Kaur', 'chandan@example.com', 'hashed_password10', '9876543219', 'student', 'inactive', '2025-07-10 17:37:14'),
+(16, 'Chadanpreet', 'one12@gmail.com', '$2y$10$7TBPuH/K.1WgTv2E1r3BbO3.sqkF/P3BcCywsK8nJDxl/vmIOu1FG', 'a', 'student', 'active', '2025-07-17 05:10:12'),
+(17, 'Chadanpreet', 'one@gmail.com', '$2y$10$azuhBkgpAc7VqwL4x0ej3OCn6og/TnbyBPpDovCzWiNmyl1YWV.aW', 'CSE', 'student', 'active', '2025-07-21 14:26:53'),
+(18, 'Innomatics Research Labs', 'fgvhjbk@gmail.com', '$2y$10$s3.52AqMQOpEJ.8iISTe9OB0sV5cxQuJM.3leu7LNuEdZLNT80FTC', 'vhjbk', 'company', 'active', '2025-07-21 14:27:26'),
+(19, 'Chadanpreet', 'one1222@gmail.com', '$2y$10$cGk/3UKW0sbfUw7EkPlc5.92b4IvUQVTCF8.otoIV9mekVRRzq3ae', 'a', 'student', 'active', '2025-07-21 14:36:34');
 
 --
 -- Indexes for dumped tables
@@ -295,7 +326,7 @@ ALTER TABLE `announcements`
 -- AUTO_INCREMENT for table `applications`
 --
 ALTER TABLE `applications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `companies`
@@ -307,7 +338,7 @@ ALTER TABLE `companies`
 -- AUTO_INCREMENT for table `internships`
 --
 ALTER TABLE `internships`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `messages`
@@ -319,19 +350,19 @@ ALTER TABLE `messages`
 -- AUTO_INCREMENT for table `reports`
 --
 ALTER TABLE `reports`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Constraints for dumped tables
@@ -347,8 +378,8 @@ ALTER TABLE `announcements`
 -- Constraints for table `applications`
 --
 ALTER TABLE `applications`
-  ADD CONSTRAINT `applications_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `applications_ibfk_2` FOREIGN KEY (`internship_id`) REFERENCES `internships` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `applications_ibfk_2` FOREIGN KEY (`internship_id`) REFERENCES `internships` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_applications_student` FOREIGN KEY (`student_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `companies`
