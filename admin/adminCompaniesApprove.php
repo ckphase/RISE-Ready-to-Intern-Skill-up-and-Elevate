@@ -66,13 +66,13 @@ if (isset($_GET['id'])) {
                                 <td>
                                     <!-- deletee  -->
                                    <button class="btn btn-success btn-sm me-1">
-                                        <a href="insertCompany.php?id=<?php echo $row["id"] ?>" class="text-white"><i class="fas fa-check"></i></a>
+                                        <a href="insertCompany.php?id=<?php echo $row["id"] ?>" class="text-white">Accept</a>
                                     </button>
                                     <button class="btn btn-danger btn-sm me-1">
-                                        <a href="deleteCompany.php?id=<?php echo $row["id"] ?>" class="text-white"><i class="fas fa-times"></i></a>
+                                        <a href="deleteCompany.php?id=<?php echo $row["id"] ?>" class="text-white">Reject</i></a>
                                     </button>
                                     <button class="btn btn-outline-primary btn-sm">
-                                        <a href="update.php?id=<?php echo $row["id"] ?>" class="text-primary"><i class="fas fa-eye"></i></a>
+                                        <a href="update.php?id=<?php echo $row["id"] ?>" class="text-primary">View</a>
                                     </button>
                                 </td>
                             </tr>
@@ -127,13 +127,13 @@ if (isset($_GET['id'])) {
                                 <td>
                                     <!-- deletee  -->
                                     <button class="btn btn-success btn-sm me-1">
-                                        <a href="insertCompany.php?id=<?php echo $row["id"] ?>" class="text-white"><i class="fas fa-check"></i></a>
+                                        <a href="insertCompany.php?id=<?php echo $row["id"] ?>" class="text-white">Accept</a>
                                     </button>
                                     <button class="btn btn-danger btn-sm me-1">
-                                        <a href="deleteCompany.php?id=<?php echo $row["id"] ?>" class="text-white"><i class="fas fa-times"></i></a>
+                                        <a href="deleteCompany.php?id=<?php echo $row["id"] ?>" class="text-white">Reject</a>
                                     </button>
                                     <button class="btn btn-outline-primary btn-sm">
-                                        <a href="update.php?id=<?php echo $row["id"] ?>" class="text-primary"><i class="fas fa-eye"></i></a>
+                                        <a href="update.php?id=<?php echo $row["id"] ?>" class="text-primary">View</a>
                                     </button>
                                 </td>
                             </tr>

@@ -1,5 +1,5 @@
 <?php
-include('connection.php');
+include('../dbms/connection.php');
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
@@ -8,11 +8,15 @@ if (isset($_GET['id'])) {
     $query = "UPDATE users SET status = 'active' WHERE id = '$id' AND role = 'company'";
 
     if (mysqli_query($db, $query)) {
-        echo "<script> window.location.assign('adminCompaniesApprove.php?msg=Company Updated Successfully!') </script>";
-        exit();
+        echo "<script>
+                alert('Company Accepted Successfully!');
+                window.location.href = 'adminCompaniesApprove.php';
+              </script>";
     } else {
-        echo "<script> window.location.assign('adminCompaniesApprove.php?msg=Company Not updated!') </script>";
-        exit();
+        echo "<script>
+                alert('Company Not Accepted!');
+                window.location.href = 'adminCompaniesApprove.php';
+              </script>";
     }
 }
 ?>

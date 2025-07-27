@@ -1,6 +1,5 @@
 <?php
 include("adminHeader.php");
-
 ?>
 
 
@@ -31,7 +30,7 @@ include("adminHeader.php");
 
 
                         <?php
-                        $db = mysqli_connect("localhost", "root", "", "rise3");
+                        include('../dbms/connection.php');
                         $query = "SELECT * FROM `companies`";
 
                         $result = mysqli_query($db, $query);
