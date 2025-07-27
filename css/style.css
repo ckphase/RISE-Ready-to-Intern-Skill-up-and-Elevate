@@ -424,3 +424,67 @@
     transform: translate(-50%, -50%) rotate(360deg);
   }
 }
+/* === STYLES FOR CATEGORY CARDS ===  */
+  .category-card {
+    border: 2px solid transparent;
+    transition: border 0.2s ease, transform 0.2s ease;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+  .category-card:hover {
+    border: 3px solid #1554b1ff; /* Blue border on hover */
+    transform: translateY(-5px);  /* Subtle lift effect */
+  }
+
+  .category-icon i {
+    transition: color 0.3s ease;
+  }
+
+  .category-card:hover .category-icon i {
+    color: #1554b1ff;
+  }
+  /* heading index page */
+  
+  /* Animate the heading and subtext */
+.heading-title, .heading-subtext {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slideFadeIn 0.8s ease-out forwards;
+}
+
+/* Delay subtext slightly for staggered effect */
+.heading-subtext {
+  animation-delay: 0.3s;
+}
+
+/* Keyframes for fade + slide */
+@keyframes slideFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.heading-title {
+  font-weight: 700;
+  color: #0a2f66;
+  font-size: 2.5rem;
+  position: relative;
+  display: inline-block;
+}
+
+.heading-title::after {
+  content: '';
+  width: 60px;
+  height: 3px;
+  background-color: #1554b1;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -10px;
+  border-radius: 2px;
+}
