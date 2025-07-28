@@ -1,6 +1,6 @@
 <?php
 include("adminHeader.php");
-include("connection.php");
+include("../dbms/connection.php");
 
 $urlId = $_GET["id"];
 $query = "SELECT * FROM `users` WHERE `id` = '$urlId' AND `role` = 'company'";
@@ -77,9 +77,15 @@ if (isset($_POST["submit_button"])) {
     $result = mysqli_query($db, $query);
 
     if ($result == 1) {
-        echo "<script> window.location.assign('adminCompaniesApprove.php?msg=Company Updated Successfully!') </script>";
+        echo "<script>
+                alert('Company Updated Successfully!');
+                window.location.href = 'adminCompaniesApprove.php';
+              </script>";
     } else {
-        echo "<div class='text-center text-danger fw-bold'>Failed to Update Company!</div>";
+        echo "<script>
+                alert('Company Not Updated!');
+                window.location.href = 'adminCompaniesApprove.php';
+              </script>";
     }
 }
 ?>
