@@ -1,54 +1,59 @@
 <?php
 session_start();
 
+// Turn on error reporting (for debugging only — remove in production)
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-// PROCESS LOGIN FIRST
-if (isset($_POST['login'])) {
-    include('../dbms/connection.php');
+// Handle login submission
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
+    require_once('../dbms/connection.php');
 
+    // Check connection
     if (!$db) {
-        die("Connection failed: " . mysqli_connect_error());
+        die("Database connection failed: " . mysqli_connect_error());
     }
-    
-    $email = $_POST['userEmail'];
+
+    $email = mysqli_real_escape_string($db, $_POST['userEmail']);
     $password = $_POST['userPassword'];
 
-    $sql = "SELECT * FROM users WHERE email = '$email' AND password = '$password' ";
-    $result = mysqli_query($db, $sql);
+    $query = "SELECT * FROM users WHERE email = '$email' LIMIT 1";
+    $result = mysqli_query($db, $query);
 
-    if (mysqli_num_rows($result) == 1) {
+    if ($result && mysqli_num_rows($result) === 1) {
         $user = mysqli_fetch_assoc($result);
-        $_SESSION['email'] = $user['email'];
-        $_SESSION['role'] = $user['role'];
 
-        if ($user['role'] == 'student') {
-            header("Location: ../student/studentpanel.php?id=" . $user['id']);
-            exit();
-        } elseif ($user['role'] == 'company') {
-            header("Location: ../company/company.php?id=" . $user['id']);
-            exit();
-        }
-        elseif ($user['role'] == 'admin') {
-            header("Location: ../admin/adminDashboard.php?id=" . $user['id']);
-            exit();
+        if (password_verify($password, $user['password'])) {
+            $_SESSION['email'] = $user['email'];
+            $_SESSION['role'] = $user['role'];
+            $id = $user['id'];
+
+            // Redirect by role
+            if ($user['role'] === 'student') {
+                header("Location: ../student/studentpanel.php?id=$id");
+            } elseif ($user['role'] === 'company') {
+                header("Location: ../company/company.php?id=$id");
+            } elseif ($user['role'] === 'admin') {
+                header("Location: ../admin/adminDashboard.php?id=$id");
+            } else {
+                echo "<script>alert('Unknown user role.'); window.location.href='login.php';</script>";
+            }
+            exit;
         } else {
-            echo "Unknown role.";
+            echo "<script>alert('Invalid email or password.'); window.location.href='login.php';</script>";
         }
     } else {
-        echo "<script>alert('Invalid email or password'); window.location.href='login.php';</script>";
+        echo "<script>alert('Invalid email or password.'); window.location.href='login.php';</script>";
     }
 
     mysqli_close($db);
 }
 ?>
 
+<?php include('header.php'); ?>
 
-
-<?php
-include('../landing/header.php');
-?>
-
-<!-- Login UI -->
+<!-- UI Section -->
 <div class="container-xxl py-5 bg-dark page-header mb-5">
     <div class="container my-5 pt-5 pb-4">
         <h1 class="display-3 text-white mb-3 animated slideInDown">Login Here</h1>
@@ -75,13 +80,13 @@ include('../landing/header.php');
                     <div class="row g-3">
                         <div class="col-md-12">
                             <div class="form-floating">
-                                <input type="email" class="form-control" id="email" placeholder="Your Email" name="userEmail" required>
+                                <input type="email" class="form-control" id="email" name="userEmail" placeholder="Your Email" required>
                                 <label for="email">Your Email</label>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-floating">
-                                <input type="password" class="form-control" id="password" placeholder="Password" name="userPassword" required>
+                                <input type="password" class="form-control" id="password" name="userPassword" placeholder="Password" required>
                                 <label for="password">Password</label>
                             </div>
                         </div>
@@ -92,7 +97,7 @@ include('../landing/header.php');
                 </form>
             </div>
 
-            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+            <div class="text-center wow fadeInUp mt-4" data-wow-delay="0.1s">
                 <h6 class="section-title bg-white text-center text-primary px-3">
                     <a href="signIn.php">Click Here To Sign-Up</a>
                 </h6>
@@ -101,5 +106,4 @@ include('../landing/header.php');
     </div>
 </div>
 
-
-<?php include('../landing/footer.php'); ?>
+<?php include('footer.php'); ?>
