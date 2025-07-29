@@ -1,3 +1,5 @@
-![Progress](https://img.shields.io/badge/Focus-70%25-brightgreen)
-![Progress](https://img.shields.io/badge/YouTube%20Goal-30%25-blue)
-![Progress](https://img.shields.io/badge/MEXT%20Prep-50%25-yellow)
+##  RISE Project Completion Status
+
+![Admin Panel](https://progress-bar.dev/90/?title=Admin%20Panel&width=300&color=4caf50)
+![Student Panrl](https://progress-bar.dev/80/?title=Eco%20Tourism%20Tracker&width=300&color=2196f3)
+![Company Panel](https://progress-bar.dev/85/?title=RISE%20Labs&width=300&color=ff9800)
