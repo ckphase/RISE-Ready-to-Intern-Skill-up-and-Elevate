@@ -3,41 +3,18 @@ include ('header.php');
 ?>
 
 <!-- About Hero Section -->
-<section class="hero-section" style="background: url('../img/landing-2.avif') no-repeat center center fixed; background-size: cover; min-height: 450px; overflow: hidden;">
-  <div class="container-fluid" style="padding-right: 0px">
-    <div class="row g-0 align-items-center" style="min-height: 400px; padding-bottom: 0px;">
-
-      <!-- Left: About Text -->
-      <div class="col-lg-6 text-white px-5" data-aos="fade-right">
-        <div class="hero-text">
+<div class="container-xxl bg-dark page-header mb-5" style="padding-left: 60px; background: url('../img/landing-2.avif') no-repeat center center fixed;background-size: cover;">
+    <div class="my-5 pt-5 pb-4">
           <h1 class="display-5 fw-bold">About RISE</h1>
-          <p class="lead mb-3">At RISE, we aim to empower students through industry-aligned training, expert mentorship, and impactful opportunities tailored to boost their careers in the digital age.</p>
-          <nav aria-label="breadcrumb">
-            <ol class="breadcrumb text-uppercase bg-transparent p-0 m-0">
-              <li class="breadcrumb-item"><a href="#" class="text-white">Home</a></li>
-              <li class="breadcrumb-item"><a href="#" class="text-white">Pages</a></li>
-              <li class="breadcrumb-item text-white active" aria-current="page">About</li>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb text-uppercase">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Pages</a></li>
+                <li class="breadcrumb-item text-white active" aria-current="page">Job List</li>
             </ol>
-          </nav>
-        </div>
-      </div>
-
-      <!-- Right: Decorative Grid -->
-      <div class="col-lg-6 d-flex justify-content-center align-items-center" data-aos="fade-left" style="min-height: 450px;">
-        <div class="box-grid" style="width: 100%; height: 100%;">
-          <?php 
-            $inactive = [0,1,2,3,12,13,24,25,26,27,36,37,38,39,40,41,42,48,49,50,51,52,53,54,55,60,61,62,63,64,65,66,67,68,69,72,73,74,75,76,77,78,79,80,84,85,86,87,88,89,90,91,96,98,99,101,102,109,110,111,112,120,121,124];
-            for ($i = 0; $i < 132; $i++) {
-              $class = in_array($i, $inactive) ? 'grid-box inactive-box' : 'grid-box';
-              echo "<div class='$class'></div>";
-            }
-          ?>
-        </div>
-      </div>
-
+        </nav>
     </div>
-  </div>
-</section>
+</div>
 <!-- End About Hero Section -->
 
 <!-- About Start -->

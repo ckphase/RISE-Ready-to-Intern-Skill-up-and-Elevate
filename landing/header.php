@@ -93,7 +93,7 @@
                         <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">More</a>
                         <div class="dropdown-menu rounded-0 m-0">
                             <a href="category.php" class="dropdown-item">Categories</a>
-                            <a href="testimonial.php" class="dropdown-item">Reviews</a>
+                            <a href="testimonial.php" class="dropdown-item disabled">Reviews</a>
                         </div>
                     </div>
                     <a href="contact.php" class="nav-item nav-link">Contact</a>
@@ -101,4 +101,39 @@
                 <a href="login.php" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Login<i class="fa fa-arrow-right ms-3"></i></a>
             </div>
         </nav>
+        
         <!-- Navbar End -->
+
+        
+<!-- Cursor Circles -->
+<div class="cursor-circle circle-1"></div>
+<div class="cursor-circle circle-2"></div>
+<style>
+    .circle-1 { width: 15px; height: 15px; }
+  .circle-2 { width: 40px; height: 40px; border: 2px solid #0d6efd; }
+</style>
+<!-- === JS: Cursor Tracking === -->
+<script>
+  const circle1 = document.querySelector(".circle-1");
+  const circle2 = document.querySelector(".circle-2");
+
+  document.addEventListener("mousemove", (e) => {
+    const { clientX: x, clientY: y } = e;
+    circle1.style.left = `${x}px`;
+    circle1.style.top = `${y}px`;
+    circle2.style.left = `${x}px`;
+    circle2.style.top = `${y}px`;
+  });
+
+  document.querySelectorAll('.grid-box').forEach(box => {
+    box.addEventListener('mouseenter', () => {
+      box.classList.add('hovered');
+    });
+
+    box.addEventListener('mouseleave', () => {
+      setTimeout(() => {
+        box.classList.remove('hovered');
+      }, 2000); // Keeps color for 2s after hover
+    });
+  });
+</script>
