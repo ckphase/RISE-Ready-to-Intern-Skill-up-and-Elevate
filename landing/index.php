@@ -181,9 +181,30 @@
     transition: all 0.3s ease;
   }
 </style>
+<script>
+  const circle1 = document.querySelector(".circle-1");
+  const circle2 = document.querySelector(".circle-2");
 
+  document.addEventListener("mousemove", (e) => {
+    const { clientX: x, clientY: y } = e;
+    circle1.style.left = `${x}px`;
+    circle1.style.top = `${y}px`;
+    circle2.style.left = `${x}px`;
+    circle2.style.top = `${y}px`;
+  });
 
+  document.querySelectorAll('.grid-box').forEach(box => {
+    box.addEventListener('mouseenter', () => {
+      box.classList.add('hovered');
+    });
 
+    box.addEventListener('mouseleave', () => {
+      setTimeout(() => {
+        box.classList.remove('hovered');
+      }, 2000); // Keeps color for 2s after hover
+    });
+  });
+</script>
 <!-- === AOS LIBRARY === -->
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>

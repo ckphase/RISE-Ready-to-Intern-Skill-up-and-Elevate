@@ -112,28 +112,3 @@
     .circle-1 { width: 15px; height: 15px; }
   .circle-2 { width: 40px; height: 40px; border: 2px solid #0d6efd; }
 </style>
-<!-- === JS: Cursor Tracking === -->
-<script>
-  const circle1 = document.querySelector(".circle-1");
-  const circle2 = document.querySelector(".circle-2");
-
-  document.addEventListener("mousemove", (e) => {
-    const { clientX: x, clientY: y } = e;
-    circle1.style.left = `${x}px`;
-    circle1.style.top = `${y}px`;
-    circle2.style.left = `${x}px`;
-    circle2.style.top = `${y}px`;
-  });
-
-  document.querySelectorAll('.grid-box').forEach(box => {
-    box.addEventListener('mouseenter', () => {
-      box.classList.add('hovered');
-    });
-
-    box.addEventListener('mouseleave', () => {
-      setTimeout(() => {
-        box.classList.remove('hovered');
-      }, 2000); // Keeps color for 2s after hover
-    });
-  });
-</script>
