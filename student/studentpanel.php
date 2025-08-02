@@ -147,8 +147,40 @@ include('../dbms/connection.php');
                         <h5><i class="fas fa-chart-line me-2"></i>Recent Trainings</h5>
                     </div>
                     <div class="card-body">
-              
+                        <?php
+                        $trainingsQuery = "SELECT title, description, created_at FROM internships ORDER BY created_at DESC LIMIT 4";
+                        $trainingsResult = mysqli_query($db, $trainingsQuery);
+
+                        if (mysqli_num_rows($trainingsResult) > 0): ?>
+                            <div class="table-responsive">
+                                <table class="table table-bordered align-middle mb-0">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Title</th>
+                                            <th>Description</th>
+                                            <th>Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $i = 1;
+                                        while ($training = mysqli_fetch_assoc($trainingsResult)): ?>
+                                            <tr>
+                                                <td><?= $i++ ?></td>
+                                                <td><?= htmlspecialchars($training['title']) ?></td>
+                                                <td><?= htmlspecialchars(mb_strimwidth($training['description'], 0, 60, '...')) ?>
+                                                </td>
+                                                <td><?= date('M d, Y', strtotime($training['created_at'])) ?></td>
+                                            </tr>
+                                        <?php endwhile; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <?php else: ?>
+                            <p class="text-muted mb-0">No recent trainings available.</p>
+                        <?php endif; ?>
                     </div>
+
                 </div>
             </div>
             <div class="col-md-6">

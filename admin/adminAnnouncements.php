@@ -90,15 +90,17 @@
                             <?php
                             $query = "SELECT * FROM `announcements` ORDER BY created_at DESC";
                             $result = mysqli_query($db, $query);
+                            $i = 1;
                             while ($row = mysqli_fetch_assoc($result)) {
                                 echo "<tr>
-                                    <th scope='row'>{$row["id"]}</th>
+                                    <th scope='row'>{$i}</th>
                                     <td>{$row["title"]}</td>
                                     <td>{$row["message"]}</td>
                                     <td>{$row["target_role"]}</td>
                                     <td>{$row["created_at"]}</td>
                                     <td>{$row["priority"]}</td>
                                 </tr>";
+                                $i++;
                             }
                             ?>
                         </tbody>

@@ -30,7 +30,7 @@ include('adminHeader.php');
                     <tbody>
                         <?php
                         include('../dbms/connection.php');
-                        $query = "SELECT * FROM `reports` where status='resolved' ORDER BY `created at`";
+                        $query = "SELECT * FROM `reports` where status='unresolved' ORDER BY `created at`";
 
                         $result = mysqli_query($db, $query);
                         $i = 1;

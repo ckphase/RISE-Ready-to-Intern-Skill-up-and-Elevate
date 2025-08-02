@@ -56,13 +56,19 @@
                 <div class="navbar-nav ms-auto p-4 p-lg-0">
                     <a href="adminDashboard.php" class="nav-item nav-link">dashboard</a>
                     <a href="adminCompaniesApprove.php" class="nav-item nav-link">Approve Companies</a>
-                    <a href="adminApplications.php" class="nav-item nav-link">Reports</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Reports</a>
+                        <div class="dropdown-menu rounded-0 m-0">
+                            <a href="adminApplicationsUnresolved.php" class="dropdown-item">Unresolved</a>
+                            <a href="adminApplications.php" class="dropdown-item">Resolved</a>
+                        </div>
+                    </div>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">More</a>
                         <div class="dropdown-menu rounded-0 m-0">
                             <a href="adminAccountsManagement.php" class="dropdown-item">Manage Accounts</a>
                             <a href="adminInternships.php" class="dropdown-item">Internships</a>
-                            <a href="adminAllUsers.php" class="dropdown-item">Users List</a>
+                            <a href="admin.php" class="dropdown-item">Users List</a>
                             <a href="adminAnnouncements.php" class="dropdown-item">Announcement</a>
                         </div>
                     </div>
