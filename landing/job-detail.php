@@ -1,10 +1,9 @@
-<?php
-include('header.php');
-?>
-<!-- Header End -->
-<div class="container-xxl bg-dark page-header mb-5" style="padding-left: 60px; background: url('../img/landing-2.avif') no-repeat center center fixed;background-size: cover;">
-    <div class="my-5 pt-5 pb-4">
-        <h1 class="display-5 fw-bold">Internships</h1>
+<?php include('header.php'); ?>
+
+<!-- Page Header -->
+<div class="container-xxl bg-dark page-header mb-5" style="padding-left: 60px; background: url('../img/landing-2.avif') no-repeat center center fixed; background-size: cover;">
+    <div class="my-5 pt-5 pb-4 text-white">
+        <h1 class="display-5 fw-bold animated fadeInDown">Industrial Trainings</h1>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb text-uppercase">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
@@ -14,36 +13,40 @@ include('header.php');
         </nav>
     </div>
 </div>
-<!-- Header End -->
+<!-- Internships Section -->
+<div class="container py-5">
+    <h2 class="text-center mb-5 wow fadeInUp">Available Internships</h2>
 
-
-<!-- Jobs Start -->
-<div class="container-xxl py-5">
-    <div class="container">
-        <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">Internships Listing</h1>
-
+    <div class="internship-list">
         <?php
         include('../dbms/connection.php');
         $query = "SELECT * FROM internships";
         $result = mysqli_query($db, $query);
+        $delay = 0.1;
+
         while ($row = mysqli_fetch_assoc($result)) {
-            ?>
-            <div class="card my-4">
-                <div class="card-header">
-                   <?php echo $row["title"]?>
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title"><?php echo $row["title"]?></h5>
-                    <p class="card-text"><?php echo $row["description"]?></p>
-                    <a href="#" class="btn btn-primary">Apply Now</a>
+        ?>
+            <div class="internship-item wow fadeInUp" data-wow-delay="<?= $delay ?>s">
+                <div class="internship-content">
+                    <div class="internship-left">
+                        <div class="internship-label">INTERNSHIP</div>
+                        <h5 class="internship-title"><?= $row["title"]; ?></h5>
+                        <p class="internship-desc"><?= $row["description"]; ?></p>
+                    </div>
+                    <div class="internship-right">
+                        <a href="login.php" class="internship-apply">Apply Now</a>
+                    </div>
                 </div>
             </div>
-            <?php
-        }
-        ?>
+        <?php $delay += 0.1; } ?>
     </div>
 </div>
-<!-- Jobs End -->
-<?php
-include('footer.php');
-?>
+
+<!-- Animate.css and WOW.js -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+<script>
+    new WOW().init();
+</script>
+
+<?php include('footer.php'); ?>

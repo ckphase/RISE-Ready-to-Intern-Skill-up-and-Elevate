@@ -90,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
                 </form>
             </div>
 
-            <div class="text-center wow fadeInUp mt-4" data-wow-delay="0.1s">
+        <div class="text-center wow fadeInUp" data-wow-delay="1s">
                 <h6 class="section-title bg-white text-center text-primary px-3">
                     <a href="signIn.php">Click Here To Sign-Up</a>
                 </h6>

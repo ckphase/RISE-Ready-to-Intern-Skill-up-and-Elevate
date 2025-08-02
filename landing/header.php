@@ -103,11 +103,6 @@
         </nav>
         
         <!-- Navbar End -->
-
-        
-<!-- Cursor Circles -->
-<div class="cursor-circle circle-1"></div>
-<div class="cursor-circle circle-2"></div>
 <style>
     .circle-1 { width: 15px; height: 15px; }
   .circle-2 { width: 40px; height: 40px; border: 2px solid #0d6efd; }

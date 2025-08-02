@@ -1,5 +1,5 @@
 <?php
-include('dbms/connection.php');
+include('../dbms/connection.php');
 
 // Get all users
 $result = mysqli_query($db, "SELECT id, password FROM users");
