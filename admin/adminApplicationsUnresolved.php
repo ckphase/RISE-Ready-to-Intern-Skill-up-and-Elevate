@@ -1,5 +1,18 @@
 <?php
+session_start();
+if (!isset($_SESSION['id'])) {
+    header("Location: companyLogin.php"); // Or adminLogin.php if this is admin side
+    exit();
+}
+$admin_id = $_SESSION['id'];
+
 include('adminHeader.php');
+include('../dbms/connection.php');
+
+// Optional: Get Admin Name
+$query = "SELECT name FROM `users` WHERE id = '$admin_id'";
+$result = mysqli_query($db, $query);
+$adminName = ($result && mysqli_num_rows($result) > 0) ? mysqli_fetch_assoc($result)['name'] : "Admin";
 ?>
 <div class="container-xxl py-5" id="allCategories">
     <div class="container">

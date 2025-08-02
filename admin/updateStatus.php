@@ -9,7 +9,7 @@ if (isset($_GET['id']) && isset($_GET['status'])) {
     if (in_array($status, $allowed)) {
         $query = "UPDATE reports SET status='$status' WHERE id=$id";
         if (mysqli_query($db, $query)) {
-            header("Location: adminApplications.php"); 
+            header("Location: adminApplications.php"); // Change to your actual report page
             exit;
         } else {
             echo "Error updating status.";

@@ -1,4 +1,5 @@
 <?php
+session_start();
 include('../dbms/connection.php');
 
 if (isset($_GET['id'])) {
@@ -10,12 +11,12 @@ if (isset($_GET['id'])) {
     if (mysqli_query($db, $query)) {
         echo "<script>
                 alert('Company Accepted Successfully!');
-                window.location.href = 'adminCompaniesApprove.php';
+                window.location.href = 'adminCompaniesApprove.php?id=" . $id . "';
               </script>";
     } else {
         echo "<script>
                 alert('Company Not Accepted!');
-                window.location.href = 'adminCompaniesApprove.php';
+                window.location.href = 'adminCompaniesApprove.php?id=" . $id . "';
               </script>";
     }
 }

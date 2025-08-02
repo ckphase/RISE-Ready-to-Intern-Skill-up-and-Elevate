@@ -68,7 +68,7 @@
                         <div class="dropdown-menu rounded-0 m-0">
                             <a href="adminAccountsManagement.php" class="dropdown-item">Manage Accounts</a>
                             <a href="adminInternships.php" class="dropdown-item">Internships</a>
-                            <a href="admin.php" class="dropdown-item">Users List</a>
+                            <a href="adminAllUsers.php" class="dropdown-item">Users List</a>
                             <a href="adminAnnouncements.php" class="dropdown-item">Announcement</a>
                         </div>
                     </div>

@@ -1,19 +1,21 @@
 <?php
+session_start(); // ✅ Always at the top
+
+// Store company_id from URL into session once
+if (isset($_GET['id'])) {
+    $_SESSION['id'] = intval($_GET['id']);
+}
+
+// Now retrieve it
+if (!isset($_SESSION['id'])) {
+    // Redirect if ID is missing
+    header("Location: companyLogin.php");
+    exit();
+}
+
+$admin_id = $_SESSION['id'];
 include('adminheader.php');
 include('../dbms/connection.php');
-?>
-<?php
-// Check if 'id' is set
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
-    $query = "Select * from `users` where id = '$id'";
-    $result = mysqli_query($db, $query);
-    $row = mysqli_fetch_array($result);
-    $id = $row["id"];
-    $name = $row["name"];
-} else {
-    echo "No user ID provided.";
-}
 ?>
 <!-- Professional Admin Header with Background Image -->
 <div class="container-fluid text-white px-4 mb-5" style="
@@ -27,6 +29,16 @@ if (isset($_GET['id'])) {
     <div class="container">
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
             <div>
+                <?php
+                $query = "SELECT name FROM `users` WHERE id = '$admin_id'";
+                $result = mysqli_query($db, $query);
+                if ($result && mysqli_num_rows($result) > 0) {
+                    $row = mysqli_fetch_assoc($result);
+                    $name = $row['name'];
+                } else {
+                    $name = "Admin";
+                }
+                ?>
                 <h2 class="fw-bold mb-1 text-uppercase" style="letter-spacing: 1px;">Welcome,
                     <?php echo htmlspecialchars($name); ?>
                 </h2>
