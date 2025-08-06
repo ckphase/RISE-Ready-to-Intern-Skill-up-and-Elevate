@@ -1,5 +1,5 @@
 # RISE
-update: 
+
 ## Project Progress
 ![Landing Page](https://img.shields.io/badge/Landing_Page-100%25-brightgreen?style=for-the-badge&logo=vercel)
 ![Admin Panel](https://img.shields.io/badge/Admin_Panel-100%25-brightgreen?style=for-the-badge&logo=vercel)
