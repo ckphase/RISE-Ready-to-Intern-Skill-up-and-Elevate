@@ -50,7 +50,13 @@
   AOS.init();
 </script>
 
-    
+    <script>
+  // Hide loader once page fully loads
+  window.addEventListener("load", function () {
+    document.getElementById("loader").style.display = "none";
+  });
+</script>
+
 </body>
 
 </html>

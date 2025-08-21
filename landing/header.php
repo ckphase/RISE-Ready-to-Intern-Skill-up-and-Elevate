@@ -107,3 +107,76 @@
     .circle-1 { width: 15px; height: 15px; }
   .circle-2 { width: 40px; height: 40px; border: 2px solid #0d6efd; }
 </style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My PHP Project</title>
+  <style>
+    /* Loader style */
+    #loader {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    .spinner {
+      border: 6px solid #f3f3f3;
+      border-top: 6px solid #3498db;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 2s linear infinite;
+    }
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Loader -->
+  <div id="loader">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- Page content starts here -->
+<style>
+/* Page transition animation */
+.fade-out {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+.fade-in {
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
+</style>
+
+<script>
+// When leaving page
+document.addEventListener("DOMContentLoaded", () => {
+  document.body.classList.add("fade-in");
+
+  document.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", function(e) {
+      const href = this.getAttribute("href");
+
+      // Skip anchors and empty links
+      if (!href || href.startsWith("#")) return;
+
+      e.preventDefault(); // stop instant redirect
+      document.body.classList.remove("fade-in");
+      document.body.classList.add("fade-out");
+
+      // Wait for animation, then redirect
+      setTimeout(() => {
+        window.location = href;
+      }, 500); // matches CSS 0.5s
+    });
+  });
+});
+</script>
