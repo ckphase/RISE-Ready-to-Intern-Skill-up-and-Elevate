@@ -13,6 +13,8 @@ https://github.com/user-attachments/assets/9c51d318-a8ee-49b3-8118-659c23dc3b96
 
 ## Flowchart
 <img width="466" height="181" alt="dfd1 drawio" src="https://github.com/user-attachments/assets/40c892ff-7015-4329-b98c-94ba56d4ea95" />
+<img width="725" height="376" alt="company drawio" src="https://github.com/user-attachments/assets/63aaf378-503f-4eee-aedc-cde9220f412b" />
+<img width="725" height="376" alt="student drawio" src="https://github.com/user-attachments/assets/bc217e50-a05f-42d5-aa2b-6738587208e5" />
 
 
 ---
