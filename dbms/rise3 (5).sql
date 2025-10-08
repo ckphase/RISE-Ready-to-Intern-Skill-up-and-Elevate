@@ -244,12 +244,6 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `contact`, `role`, `stat
 (6, 'Jennie Ruby', 'company@example.com', '123', '9876543215', 'company', 'active', '2025-07-10 17:37:14'),
 (7, 'Jungkook Jeon', 'jk@example.com', 'hashed_password7', '9876543216', 'student', 'active', '2025-07-10 17:37:14'),
 (8, 'Irene Bae', 'irene@example.com', 'hashed_password8', '9876543217', 'company', 'active', '2025-07-10 17:37:14'),
-(9, 'SUGA Min', 'suga@example.com', 'hashed_password9', '9876543218', 'admin', 'active', '2025-07-10 17:37:14'),
-(10, 'Chandan Kaur', 'chandan@example.com', 'hashed_password10', '9876543219', 'student', 'inactive', '2025-07-10 17:37:14'),
-(16, 'Chadanpreet', 'one12@gmail.com', '$2y$10$7TBPuH/K.1WgTv2E1r3BbO3.sqkF/P3BcCywsK8nJDxl/vmIOu1FG', 'a', 'student', 'active', '2025-07-17 05:10:12'),
-(17, 'Chadanpreet', 'one@gmail.com', '$2y$10$azuhBkgpAc7VqwL4x0ej3OCn6og/TnbyBPpDovCzWiNmyl1YWV.aW', 'CSE', 'student', 'active', '2025-07-21 14:26:53'),
-(18, 'Innomatics Research Labs', 'fgvhjbk@gmail.com', '$2y$10$s3.52AqMQOpEJ.8iISTe9OB0sV5cxQuJM.3leu7LNuEdZLNT80FTC', 'vhjbk', 'company', 'active', '2025-07-21 14:27:26'),
-(19, 'Chadanpreet', 'one1222@gmail.com', '$2y$10$cGk/3UKW0sbfUw7EkPlc5.92b4IvUQVTCF8.otoIV9mekVRRzq3ae', 'a', 'student', 'active', '2025-07-21 14:36:34');
 
 --
 -- Indexes for dumped tables
