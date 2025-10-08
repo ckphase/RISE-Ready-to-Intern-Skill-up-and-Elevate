@@ -16,18 +16,6 @@ https://github.com/user-attachments/assets/9c51d318-a8ee-49b3-8118-659c23dc3b96
 
 ---
 
-<img width="725" height="376" alt="company drawio" src="https://github.com/user-attachments/assets/63aaf378-503f-4eee-aedc-cde9220f412b" />
-
----
-
-<img width="725" height="376" alt="student drawio" src="https://github.com/user-attachments/assets/bc217e50-a05f-42d5-aa2b-6738587208e5" />
-
----
-
-<img width="701" height="386" alt="image" src="https://github.com/user-attachments/assets/22aa6343-964e-4a70-bca0-a03753f3cbbb" />
-
----
-
 ## Key Features
 - **Landing Page** – Fully designed landing page with responsive sliders.  
 - **Admin Panel** – Manage companies, students, and applications.  
